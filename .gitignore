@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-/dist
+/dist*
 
 
 # local env files
@@ -21,3 +21,12 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.jpg
+.vercel
+dist/*
+src/assets/day/*
+src/assets/night/*
+public/img/icons/*
+public/img/icons_old/*
+public/img/favicon_io.zip
+public/img/pwa-app-icons.zip
