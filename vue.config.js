@@ -5,11 +5,17 @@ module.exports = defineConfig({
   transpileDependencies: true,
   filenameHashing: true,
   chainWebpack: config => {
-    config.plugin("copy").use(CopyPlugin, [
-      {
-        patterns: [{ from: "src/api", to: "../api" }],
-      },
-    ]);
+    // config.plugin("copy").use(CopyPlugin, [
+    //   {
+    //     patterns: [{ from: "src/api", to: "../api" }],
+    //   },
+    // ]);
+    config
+      .plugin('html')
+      .tap(args => {
+        args[0].title = "Portfolio By Sam";
+        return args;
+      })
   },
   pwa: {
     name: 'Portfolio by Sam',
