@@ -5,8 +5,8 @@
       <div class="img-friend">
         <h1>Hi, I'm Sam and I'm a <span>Junior front-end developer</span></h1>
         <p>
-          I am a junior front end developer with 1 year commercial
-          experience. I specailise in creating modern web apps!
+          I am a junior front end developer with 1 year commercial experience. I
+          specailise in creating modern web apps!
         </p>
         <div class="buttons-div">
           <button class="buttons">Contact Me</button>
@@ -23,7 +23,7 @@
       </p>
       <div class="work-array">
         <div class="work-pill" v-for="pill in workArray" :key="pill.name">
-          {{ pill.name }}
+          {{ pill.name }} ({{jobs.filter((job)=>job.tags.includes(pill.name)).length}})
         </div>
       </div>
       <div class="jobs-array">
@@ -34,8 +34,8 @@
           <div class="details">
             <div class="site-title">{{ job.name }}</div>
             <div class="tag-array">
-              <div class="tags" v-for="tag in job.tags" :key="tag">
-                {{ tag }}
+              <div class="tags" v-for="tag in removeAll(job.tags)" :key="tag">
+                <span>{{ tag }}</span>
               </div>
             </div>
             <div class="description">{{ job.description }}</div>
@@ -67,12 +67,16 @@ export default {
     const workArray = ref([
       { name: "All" },
       { name: "CSS" },
-      { name: "JS" },
       { name: "HTML" },
       { name: "JAVASCRIPT" },
       { name: "Vue.js" },
       { name: "Python" },
     ]);
+
+    const removeAll = (tagArray) => {
+      const allIndex = tagArray.indexOf('All');
+      return tagArray.slice(allIndex+1)
+    }
 
     const jobs = ref([
       {
@@ -81,15 +85,34 @@ export default {
         href: "",
         github: "",
         image: require("../assets/weather.png"),
-        tags: ["Vue.js", "CSS", "HTML", "JAVASCRIPT"],
+        tags: ["All", "Vue.js", "CSS", "HTML", "JAVASCRIPT"],
         otherFeatures: [
           "Color themeing(by weather)",
           "SASS",
           "Adaptive Design",
         ],
       },
+      {
+        name: "Calculator",
+        description: "Basic calculator App",
+        href: "",
+        github: "",
+        image: require("../assets/calc.png"),
+        tags: ["All", "Vue.js", "CSS", "HTML", "JAVASCRIPT"],
+        otherFeatures: ["SASS", "Responsive Design"],
+      },
+      {
+        name: "Quick Design Task",
+        description:
+          "Basic Design task required of me for a front end interview",
+        href: "",
+        github: "",
+        image: require("../assets/quick-design-task.png"),
+        tags: ["All", "CSS", "HTML", "JAVASCRIPT"],
+        otherFeatures: ["Responsive Design"],
+      },
     ]);
-    return { workArray, jobs };
+    return { workArray, jobs, removeAll };
   },
 };
 </script>
@@ -100,9 +123,12 @@ export default {
 .home {
   display: grid;
   place-items: center;
-
-  max-width: 95vw;
+  width: 100%;
+  max-width: min(1400px, 95vw);
   margin: 0 auto;
+  & > div {
+    width: 100%;
+  }
 
   .bio-section {
     display: inline-flex;
@@ -110,8 +136,8 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     grid-gap: 10px;
-    max-width: 1400px;
-    width: 95vw;
+    // max-width: 1400px;
+    // width: 100%;
 
     // width: clamp(90%, 90vw, 1400px);
     // padding: 20px;
@@ -123,6 +149,7 @@ export default {
       width: 40vw;
       width: clamp(220px, 23vw, 400px);
       filter: grayscale(100%);
+      border-radius: 50%;
     }
 
     .img-friend {
@@ -174,6 +201,7 @@ export default {
     display: flex;
     grid-gap: 15px;
     flex-direction: column;
+    justify-content: center;
     .work-array {
       display: flex;
       justify-content: center;
@@ -195,16 +223,17 @@ export default {
     .jobs-array {
       border-radius: 5px;
       display: grid;
+      grid-template-rows: repeat(auto-fit, minmax(350px, 1fr));
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
       grid-gap: 20px;
-      margin: 0 auto;
+      place-items: center;
+      // margin: 0 auto;
       .jobs {
         display: grid;
         grid-gap: 10px;
         grid-template-rows: 2fr 1fr;
         max-width: 300px;
-        max-height: 300px;
+        height: 350px;
 
         .site-img {
           background: #0001;
@@ -212,7 +241,7 @@ export default {
           padding: 5px 0 0 0;
           img {
             // max-width: 100%;
-            max-height: 185px;
+            height: 185px;
             max-width: 285px;
             border-radius: 3px;
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -223,6 +252,12 @@ export default {
         .details {
           display: grid;
           grid-gap: 5px;
+          .site-title {
+            font-weight: bold;
+          }
+          .description{
+            color: #000a;
+          }
           .tag-array {
             display: flex;
             grid-gap: 5px;
@@ -240,7 +275,6 @@ export default {
               padding: 5px 0;
             }
           }
-
         }
       }
     }
