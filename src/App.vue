@@ -1,12 +1,18 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </nav>
+  </nav> -->
+  <div class="header">
+    <div class="left">Dev by Sam</div>
+    <div class="right">Menu</div>
+  </div>
   <router-view />
 </template>
 
 <style lang="scss">
+@import "./../node_modules/normalize.css/normalize.css";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -26,5 +32,10 @@ nav {
       color: #42b983;
     }
   }
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 </style>
