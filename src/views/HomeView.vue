@@ -9,10 +9,10 @@
       ></div>
       <div class="img-friend">
         <h1>Hi, I'm Sam and I'm a <span>Junior front-end developer</span></h1>
-        <p>
+        <div>
           I am a junior front end developer with 1 year commercial experience. I
           specailise in creating modern web apps!
-        </p>
+        </div>
         <div class="buttons-div">
           <a href="#contact">
             <button class="buttons">Contact Me</button>
@@ -33,15 +33,17 @@
         Work
       </h1> -->
       <h1>Work</h1>
-      <p class="description">
+      <div class="description">
         Check my commercial and non commercial projects. If you have any
         questions feel free to ask me for more information
-      </p>
+      </div>
       <div class="work-array">
-        <div class="work-pill" v-for="pill in workArray" :key="pill.name">
-          {{ pill.name }} ({{
-            jobs.filter((job) => job.tags.includes(pill.name)).length
-          }})
+        <div v-for="pill in workArray" :key="pill.name">
+          <span class="work-pill" :class="{ selected: pill.current }" v-if="jobs.filter((job) => job.tags.includes(pill.name)).length > 0">
+            {{ pill.name }} ({{
+              jobs.filter((job) => job.tags.includes(pill.name)).length
+            }})
+          </span>
         </div>
       </div>
       <div class="jobs-array">
@@ -123,12 +125,12 @@ export default {
   },
   setup(props) {
     const workArray = ref([
-      { name: "All" },
-      { name: "CSS" },
-      { name: "HTML" },
-      { name: "JAVASCRIPT" },
-      { name: "Vue.js" },
-      { name: "Python" },
+      { name: "All", current: true },
+      { name: "CSS", current: false },
+      { name: "HTML", current: false },
+      { name: "JAVASCRIPT", current: false },
+      { name: "Vue.js", current: false },
+      { name: "Python", current: false },
     ]);
 
     const removeAll = (tagArray) => {
@@ -306,7 +308,7 @@ export default {
 
   .work-section {
     display: flex;
-    grid-gap: 15px;
+    grid-gap: 25px;
     flex-direction: column;
     justify-content: center;
     .work-array {
@@ -319,6 +321,10 @@ export default {
         background: #0001;
         padding: 7px;
         border-radius: 10px;
+
+        &:hover {
+          cursor: pointer;
+        }
 
         &.selected {
           background: black;
