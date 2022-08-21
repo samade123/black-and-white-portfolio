@@ -38,8 +38,12 @@
         questions feel free to ask me for more information
       </div>
       <div class="work-array">
-        <div v-for="pill in workArray" :key="pill.name">
-          <span class="work-pill" :class="{ selected: pill.current }" v-if="jobs.filter((job) => job.tags.includes(pill.name)).length > 0">
+        <div v-for="pill in workArray" :key="pill.name" @click="changeSelected(pill)">
+          <span
+            class="work-pill"
+            :class="{ selected: pill.current }"
+            v-if="jobs.filter((job) => job.tags.includes(pill.name)).length > 0"
+          >
             {{ pill.name }} ({{
               jobs.filter((job) => job.tags.includes(pill.name)).length
             }})
@@ -47,7 +51,13 @@
         </div>
       </div>
       <div class="jobs-array">
-        <div class="jobs" v-for="job in jobs" :key="job.href">
+        <div
+          class="jobs"
+          v-for="job in jobs.filter((element) =>
+            element.tags.includes(selectedPill.name)
+          )"
+          :key="job.href"
+        >
           <div class="site-img">
             <img :src="job.image" alt="" />
           </div>
@@ -114,7 +124,7 @@
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 // @ is an alias to /src
 import Modal from "@/components/Modal.vue";
 
@@ -137,6 +147,17 @@ export default {
       const allIndex = tagArray.indexOf("All");
       return tagArray.slice(allIndex + 1);
     };
+
+    const changeSelected = (pill) => {
+      workArray.value.forEach(skill => {
+        skill.current = false
+      });
+      pill.current = true;
+    }
+
+    const selectedPill = computed(() => {
+      return workArray.value.find((pill) => pill.current == true);
+    });
 
     const jobs = ref([
       {
@@ -236,6 +257,9 @@ export default {
       {
         name: "UI/UX",
       },
+      {
+        name: "Linux/MacOs/Windows",
+      },
     ];
     const showModal = ref(false);
     return {
@@ -246,6 +270,8 @@ export default {
       experience,
       showModal,
       skills,
+      selectedPill,
+      changeSelected,
     };
   },
 };
@@ -314,7 +340,7 @@ export default {
     .work-array {
       display: flex;
       justify-content: center;
-      grid-gap: 12px;
+      grid-gap: 25px 12px;
       flex-wrap: wrap;
 
       .work-pill {
@@ -323,6 +349,7 @@ export default {
         border-radius: 10px;
 
         &:hover {
+          background: #0002;
           cursor: pointer;
         }
 
@@ -338,7 +365,7 @@ export default {
       display: grid;
       grid-template-rows: repeat(auto-fit, minmax(350px, 1fr));
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      grid-gap: 20px;
+      grid-gap: 30px 20px;
       place-items: center;
       // margin: 0 auto;
       .jobs {
@@ -364,7 +391,7 @@ export default {
         }
         .details {
           display: grid;
-          grid-gap: 5px;
+          grid-gap: 11px;
           .site-title {
             font-weight: bold;
           }
