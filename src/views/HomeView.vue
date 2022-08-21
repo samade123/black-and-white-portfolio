@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="bio-section">
+    <div class="bio-section" id="bio">
       <div
         class="img"
         :style="{
@@ -14,13 +14,17 @@
           specailise in creating modern web apps!
         </p>
         <div class="buttons-div">
-          <button class="buttons">Contact Me</button>
-          <button class="buttons white">Check my work</button>
+          <a href="#contact">
+            <button class="buttons">Contact Me</button>
+          </a>
+          <a href="#work">
+            <button class="buttons white">Check my work</button>
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="work-section">
+    <div class="work-section" id="work">
       <!-- <h1
         :style="{
           backgroundImage: 'url(' + require('@/assets/background.png') + ')',
@@ -62,7 +66,7 @@
       </div>
     </div>
 
-    <div class="resume-section">
+    <div class="resume-section" id="resume">
       <h1>Resume</h1>
       <div class="Summary">
         I am a keen and avid code, who learned most of his front end
@@ -96,7 +100,7 @@
         PDF <i class="las la-cloud-download-alt"></i>
       </button>
     </div>
-    <div class="contact-section">
+    <div class="contact-section" id="contact">
       <h1 class="contact">Contact Me</h1>
       <div class="phone"><i class="las la-phone"></i> +447427476129</div>
       <div class="email">
@@ -264,17 +268,10 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    grid-gap: 10px;
+    grid-gap: 30px;
 
     margin: 0 auto;
     height: 100%;
-
-    img {
-      width: 40vw;
-      width: clamp(220px, 23vw, 400px);
-      filter: grayscale(100%);
-      border-radius: 50%;
-    }
     .img {
       // width: 40vw;
       width: clamp(220px, 23vw, 400px);
@@ -303,31 +300,6 @@ export default {
       }
       & > * {
         margin: 0;
-      }
-      .buttons-div {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        width: 100%;
-        place-items: center;
-        grid-gap: 20px;
-        .buttons {
-          display: grid;
-          place-items: center;
-          padding: 15px 0;
-          font-size: 20px;
-          width: 100%;
-          height: 100%;
-          background: black;
-          color: white;
-          border: none white 2px;
-          border-radius: 5px;
-
-          &.white {
-            background: white;
-            color: black;
-            border: solid black 2px;
-          }
-        }
       }
     }
   }
@@ -461,6 +433,8 @@ export default {
     grid-gap: 15px;
     flex-direction: column;
     justify-content: center;
+    padding: 10px 0;
+    background: rgba(0, 0, 0, 0.0666666667);
 
     i {
       color: green;
