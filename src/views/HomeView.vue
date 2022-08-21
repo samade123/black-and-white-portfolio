@@ -95,12 +95,12 @@
       <button class="buttons">
         PDF <i class="las la-cloud-download-alt"></i>
       </button>
+    </div>
+    <div class="contact-section">
       <h1 class="contact">Contact Me</h1>
-      <div class="contact-section">
-        <div class="phone"><i class="las la-phone"></i> +447427476129</div>
-        <div class="email">
-          <i class="las la-at"></i> samuel.ademola43+dev@gmail.com
-        </div>
+      <div class="phone"><i class="las la-phone"></i> +447427476129</div>
+      <div class="email">
+        <i class="las la-at"></i> samuel.ademola43+dev@gmail.com
       </div>
     </div>
     <Modal :showModal="showModal" />
@@ -253,8 +253,8 @@ export default {
   place-items: center;
   width: 100%;
   max-width: min(1400px, 95vw);
-  margin: 0 auto;
-  grid-gap: 20px;
+  margin: 20px auto;
+  grid-gap: 40px;
   & > div {
     width: 100%;
   }
@@ -447,17 +447,6 @@ export default {
       place-items: center;
     }
 
-    .contact-section {
-      display: flex;
-      grid-gap: 15px;
-      flex-direction: column;
-      justify-content: center;
-
-      i {
-        color: green;
-      }
-    }
-
     .buttons {
       max-width: 300px;
       margin: 0 auto;
@@ -465,6 +454,16 @@ export default {
       grid-gap: 15px;
       flex-direction: rows;
       justify-content: center;
+    }
+  }
+  .contact-section {
+    display: flex;
+    grid-gap: 15px;
+    flex-direction: column;
+    justify-content: center;
+
+    i {
+      color: green;
     }
   }
 }
