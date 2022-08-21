@@ -6,7 +6,7 @@
   <div class="header">
     <div class="left">Dev by Sam</div>
     <div class="right">
-      <i class="las la-lg la-map-marker"></i>
+      <i class="las la-lg la-bars"></i>
     </div>
   </div>
   <router-view />
@@ -15,7 +15,6 @@
 <style lang="scss">
 @import "./../node_modules/normalize.css/normalize.css";
 @import "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css";
-
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -26,11 +25,11 @@
   background: #fcfcfc;
 }
 
-nav {
-  padding: 30px;
+.header {
+  padding: 10px;
+  font-weight: bold;
 
   a {
-    font-weight: bold;
     color: #2c3e50;
 
     &.router-link-exact-active {
