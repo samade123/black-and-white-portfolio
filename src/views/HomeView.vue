@@ -8,10 +8,10 @@
         }"
       ></div>
       <div class="img-friend">
-        <h1>Hi, I'm Sam and I'm a <span>Junior front-end developer</span></h1>
+        <h1>Hi, I'm Sam and I'm a <span>Junior Front-end Developer</span></h1>
         <div>
-          I am a junior front end developer with 1 year commercial experience. I
-          specailise in creating modern web apps!
+          I am a junior front-end developer with 1 year commercial experience. I
+          specialise in creating modern web apps!
         </div>
         <div class="buttons-div">
           <a href="#contact">
@@ -34,11 +34,15 @@
       </h1> -->
       <h1>Work</h1>
       <div class="description">
-        Check my commercial and non commercial projects. If you have any
+        Check my commercial and non-commercial projects. If you have any
         questions feel free to ask me for more information
       </div>
       <div class="work-array">
-        <div v-for="pill in workArray" :key="pill.name" @click="changeSelected(pill)">
+        <div
+          v-for="pill in skillsArray"
+          :key="pill.name"
+          @click="changeSelected(pill)"
+        >
           <span
             class="work-pill"
             :class="{ selected: pill.current }"
@@ -58,7 +62,7 @@
           )"
           :key="job.href"
         >
-          <div class="site-img">
+          <div class="site-img" @click="openModal(job)">
             <img :src="job.image" alt="" />
           </div>
           <div class="details">
@@ -70,8 +74,10 @@
             </div>
             <div class="description">{{ job.description }}</div>
             <div class="buttons-div">
-              <button class="buttons">Preview</button>
-              <button class="buttons white">Source Code</button>
+              <button class="buttons" @click="openModal(job)">Preview</button>
+              <a :href="job.github" target="_blank" rel="noopener">
+                <button class="buttons white">Source Code</button>
+              </a>
             </div>
           </div>
         </div>
@@ -81,22 +87,26 @@
     <div class="resume-section" id="resume">
       <h1>Resume</h1>
       <div class="Summary">
-        I am a keen and avid code, who learned most of his front end
-        edevelopment skills in my time at Event Engineering as an Intern
-        developer. BUt I also Have plenty of coding expereince from completing
-        my 4 year (BEng) degree in Electronics and Computer Systems Engineering.
+        I am a keen and avid coder, who has learned most of his front end
+        development skills in my time at Event Engineering as an Intern
+        developer. But I also have plenty of coding experience from completing
+        my 4 year <span>(BEng) degree in Electronics and Computer Systems Engineering</span> .
       </div>
 
       <div class="subtitle"><span>Education</span></div>
       <div class="education-div">
-        <div class="education" v-for="course in education" :key="course.src">
-          {{ course.name }}
+        <div
+          class="education subtitle"
+          v-for="course in education"
+          :key="course.src"
+        >
+          <a :href="course.src" target="_blank" rel="noopener">{{ course.name }}</a>
         </div>
       </div>
-      <div class="subtitle"><span>Work expereince</span></div>
+      <div class="subtitle"><span>Work experience</span></div>
       <div class="experience-div">
-        <div class="education" v-for="job in experience" :key="job.name">
-          <div class="">{{ job.role }}</div>
+        <div class="experience" v-for="job in experience" :key="job.name">
+          <div class="subtitle">{{ job.role }}</div>
           <div class="">{{ job.name }}</div>
           <div class="">{{ job.dateCompleted }}</div>
         </div>
@@ -108,18 +118,32 @@
         </div>
       </div>
       <div class="subtitle">Download my resume as a PDF File</div>
-      <button class="buttons">
-        PDF <i class="las la-cloud-download-alt"></i>
-      </button>
+      <a
+        href="https://drive.google.com/file/d/1UN97qz68Bee-AdlqyMO5Q2ZXxdGFay60/view?usp=sharing"
+        target="_blank"
+        rel="noopener"
+      >
+        <button class="buttons">
+          PDF <i class="las la-cloud-download-alt"></i>
+        </button>
+      </a>
     </div>
     <div class="contact-section" id="contact">
       <h1 class="contact">Contact Me</h1>
-      <div class="phone"><i class="las la-phone"></i> +447427476129</div>
-      <div class="email">
-        <i class="las la-at"></i> samuel.ademola43+dev@gmail.com
-      </div>
+      <a href="tel:+447427476129" class="phone">
+        <div class="phone"><i class="las la-phone"></i> +447427476129</div>
+      </a>
+      <a href="mailto:samuel.ademola43+dev@gmail.com" class="email">
+        <div class="email">
+          <i class="las la-at"></i> samuel.ademola43+dev@gmail.com
+        </div>
+      </a>
     </div>
-    <Modal :showModal="showModal" />
+    <Modal
+      :showModal="showModal"
+      @closeModal="showModal = false"
+      :data="selectedJob"
+    />
   </div>
 </template>
 
@@ -134,7 +158,9 @@ export default {
     Modal,
   },
   setup(props) {
-    const workArray = ref([
+    const showModal = ref(false);
+
+    const skillsArray = ref([
       { name: "All", current: true },
       { name: "CSS", current: false },
       { name: "HTML", current: false },
@@ -149,26 +175,31 @@ export default {
     };
 
     const changeSelected = (pill) => {
-      workArray.value.forEach(skill => {
-        skill.current = false
+      skillsArray.value.forEach((skill) => {
+        skill.current = false;
       });
       pill.current = true;
-    }
+    };
 
     const selectedPill = computed(() => {
-      return workArray.value.find((pill) => pill.current == true);
+      return skillsArray.value.find((pill) => pill.current == true);
     });
 
+    const openModal = (job) => {
+      selectedJob.value = job;
+
+      showModal.value = true;
+    };
     const jobs = ref([
       {
         name: "Weather Dashboard",
         description: "Weather Dashboard with weather style theming",
         href: "",
-        github: "",
-        image: require("../assets/weather.png"),
+        github: "https://github.com/samade123/black-and-white-portfolio",
+        image: require("../assets/weather.webp"),
         tags: ["All", "Vue.js", "CSS", "HTML", "JAVASCRIPT"],
         otherFeatures: [
-          "Color themeing(by weather)",
+          "Color themeing (by weather)",
           "SASS",
           "Adaptive Design",
         ],
@@ -176,8 +207,8 @@ export default {
       {
         name: "Calculator",
         description: "Basic calculator App",
-        href: "",
-        github: "",
+        href: "https://calculator.projectsbysam.dev/",
+        github: "https://github.com/samade123/calculator",
         image: require("../assets/calc.png"),
         tags: ["All", "Vue.js", "CSS", "HTML", "JAVASCRIPT"],
         otherFeatures: ["SASS", "Responsive Design"],
@@ -187,7 +218,7 @@ export default {
         description:
           "Basic Design task required of me for a front end interview",
         href: "",
-        github: "",
+        github: "https://github.com/samade123/FE-developer-exercise-reach-plc",
         image: require("../assets/quick-design-task.png"),
         tags: ["All", "CSS", "HTML", "JAVASCRIPT"],
         otherFeatures: ["Responsive Design"],
@@ -210,7 +241,16 @@ export default {
         src: "https://code.tutsplus.com/courses/introduction-to-git-and-github",
         dateCompleted: "2019",
       },
+
+      {
+        name: "(BEng) in Electronics and Computer Systems Engineering at Loughborugh University",
+        src: "https://www.lboro.ac.uk/study/undergraduate/courses/electronic-and-computer-systems-engineering-beng/",
+        dateCompleted: "2021",
+      },
+
     ];
+
+    const selectedJob = ref(jobs.value[0]);
 
     const experience = [
       {
@@ -260,10 +300,12 @@ export default {
       {
         name: "Linux/MacOs/Windows",
       },
+      {
+        name: "Serverless Functions",
+      },
     ];
-    const showModal = ref(false);
     return {
-      workArray,
+      skillsArray,
       jobs,
       removeAll,
       education,
@@ -272,6 +314,8 @@ export default {
       skills,
       selectedPill,
       changeSelected,
+      selectedJob,
+      openModal,
     };
   },
 };
@@ -379,6 +423,12 @@ export default {
           background: #0001;
           border-radius: 7px;
           padding: 5px 0 0 0;
+
+          transition: opacity 0.3s ease-in;
+          &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+          }
           img {
             // max-width: 100%;
             height: 185px;
@@ -400,7 +450,9 @@ export default {
           }
           .tag-array {
             display: flex;
-            grid-gap: 5px;
+            grid-gap: 25px 8px;
+
+            justify-content: center;
 
             .tags {
               background: #0001;
@@ -413,6 +465,10 @@ export default {
           .buttons-div {
             .buttons {
               padding: 5px 0;
+
+              &.white {
+                border: white;
+              }
             }
           }
         }
@@ -422,9 +478,17 @@ export default {
 
   .resume-section {
     display: flex;
-    grid-gap: 15px;
+    grid-gap: 20px;
     flex-direction: column;
     justify-content: center;
+
+    span {
+        // font-size: 1.6em;
+        font-weight: bold;
+        // color: white;
+        // background: black;
+        // padding: 0 5px;
+      }
 
     .subtitle {
       span {
@@ -441,6 +505,29 @@ export default {
       grid-gap: 15px;
       flex-direction: column;
       justify-content: center;
+
+      
+
+      .education {
+        display: flex;
+        grid-gap: 15px;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+
+    .experience-div {
+      display: flex;
+      grid-gap: 15px;
+      flex-direction: column;
+      justify-content: center;
+
+      .experience {
+        display: flex;
+        grid-gap: 15px;
+        flex-direction: column;
+        justify-content: center;
+      }
     }
 
     .skills-div {
@@ -471,6 +558,13 @@ export default {
 
     i {
       color: green;
+    }
+  }
+
+  a {
+    color: black;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

@@ -4,7 +4,9 @@
   width: 100%;
   place-items: center;
   grid-gap: 20px;
+
 }
+
 .buttons {
   display: grid;
   place-items: center;
@@ -17,7 +19,9 @@
   border: none white 2px;
   border-radius: 5px;
 
+
   &:hover {
+    text-decoration: underline;
     cursor: pointer;
   }
 
@@ -56,4 +60,9 @@ a {
     cursor: pointer;
   }
 
+}
+
+.subtitle {
+  font-weight: bold;
+  font-size: 1.1rem;
 }

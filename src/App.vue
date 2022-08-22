@@ -5,9 +5,9 @@
   </nav> -->
   <div class="header">
     <div class="left">Dev by Sam</div>
-    <div class="right">
+    <!-- <div class="right">
       <i class="las la-lg la-bars"></i>
-    </div>
+    </div> -->
   </div>
   <router-view />
 </template>
@@ -44,6 +44,7 @@ html {
 
 .header {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  // grid-template-columns: 1fr 1fr;
 }
 </style>
