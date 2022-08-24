@@ -10,7 +10,7 @@
       <div class="img-friend">
         <h1>Hi, I'm Sam and I'm a <span>Junior Front-end Developer</span></h1>
         <div>
-          I am a junior front-end developer with 1 year commercial experience. I
+          I am a junior front-end developer with commercial experience. I
           specialise in creating modern web apps!
         </div>
         <div class="buttons-div">
@@ -167,6 +167,8 @@ export default {
       { name: "JAVASCRIPT", current: false },
       { name: "Vue.js", current: false },
       { name: "Python", current: false },
+      { name: "Figma", current: false },
+      { name: "Design", current: false },
     ]);
 
     const removeAll = (tagArray) => {
@@ -194,7 +196,7 @@ export default {
       {
         name: "Weather Dashboard",
         description: "Weather Dashboard with weather style theming",
-        href: "",
+        href: "https://weather.projectsbysam.dev/",
         github: "https://github.com/samade123/black-and-white-portfolio",
         image: require("../assets/weather.webp"),
         tags: ["All", "Vue.js", "CSS", "HTML", "JAVASCRIPT"],
@@ -212,6 +214,16 @@ export default {
         image: require("../assets/calc.png"),
         tags: ["All", "Vue.js", "CSS", "HTML", "JAVASCRIPT"],
         otherFeatures: ["SASS", "Responsive Design"],
+      },
+      {
+        name: "Market Black - Concept Design",
+        description:
+          "Concept design of a e-commerce site",
+        href: "https://www.figma.com/file/DwlOgHgPLpL2kyf8y08w4h/Market-Black-Original?node-id=0%3A1",
+        github: "https://www.figma.com/file/DwlOgHgPLpL2kyf8y08w4h/Market-Black-Original?node-id=0%3A1",
+        image: require("../assets/market-black.webp"),
+        tags: ['All','Figma','Design' ],
+        otherFeatures: [],
       },
       {
         name: "Quick Design Task",
@@ -298,7 +310,16 @@ export default {
         name: "UI/UX",
       },
       {
-        name: "Linux/MacOs/Windows",
+        name: "Responsive Design",
+      },
+      {
+        name: "MacOs",
+      },
+      {
+        name: "Linux/",
+      },
+      {
+        name: "Windows",
       },
       {
         name: "Serverless Functions",

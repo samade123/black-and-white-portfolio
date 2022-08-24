@@ -30,7 +30,9 @@
           </div>
         </div>
         <div class="buttons-div">
-          <button class="buttons">Open Site</button>
+          <a :href="data.href" target="_blank" rel="noopener">
+            <button class="buttons">Open Site</button>
+          </a>
           <a :href="data.github" target="_blank" rel="noopener">
             <button class="buttons white">Source Code</button>
           </a>
