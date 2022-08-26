@@ -1,40 +1,80 @@
 <template>
   <transition name="fade" appear>
-    <div
-      class="modal-overlay"
-      ref="modal"
-      @click="hideModal"
-      v-if="props.showModal"
-    >
-      <div class="modal" role="dialog" v-if="props.showModal">
+    <div class="modal-overlay" ref="modal" @click="hideModal" v-if="showModal">
+      <div class="modal" role="dialog" v-if="showModal">
         <p>This app has an update available. Would you like to refresh now?</p>
         <button class="buttons" @click="refresh">Yes! Update App</button>
-        <button class="buttons white" @click="hideModal">No. Update Later</button>
+        <button class="buttons white" @click="hideModal">
+          No. Update Later
+        </button>
       </div>
     </div>
   </transition>
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
+import { onBeforeMount, ref } from "@vue/runtime-core";
 export default {
-  name: "HelloWorld",
-  props: ["showModal"],
+  name: "PWAModal",
   setup(props, ctx) {
     const modal = ref(null);
+
+    let registration = {};
+    let updateExists = false;
+    let refreshing = false;
+    const showModal = ref(false);
+
+    const updateAvailable = (event) => {
+      registration = event.detail;
+      updateExists = true;
+      showModal.value = true;
+    };
 
     const hideModal = (event) => {
       console.log(event.target, modal.value);
       if (event.target === modal.value) {
-        ctx.emit("closeModal");
+
+        showModal.value = false;
       }
     };
 
-    const refresh = (event) => {
-      ctx.emit("refreshApp");
+    const refresh = () => {
+      refreshApp();
     };
 
-    return { props, modal, hideModal, refresh };
+    const refreshApp = () => {
+      console.debug("refresh!!");
+      updateExists = false;
+      // Make sure we only send a 'skip waiting' message if the SW is waiting
+      if (!registration || !registration.waiting) return;
+      // Send message to SW to skip the waiting and activate the new SW
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+    };
+
+    onBeforeMount(() => {
+      console.log("beforeMounting");
+      document.addEventListener("swUpdated", updateAvailable, {
+        once: true,
+      });
+
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        // We'll also need to add 'refreshing' to our data originally set to false.
+        if (refreshing) return;
+        refreshing = true;
+        // Here the actual reload of the page occurs
+        window.location.reload();
+      });
+    });
+
+    return {
+      props,
+      modal,
+      hideModal,
+      refresh,
+      refreshApp,
+      showModal,
+      updateExists,
+    };
   },
 };
 </script>
@@ -45,17 +85,10 @@ export default {
 
 .modal,
 .pop-leave-from {
-  // position: absolute;
-  // position: fixed;
-  // top: 0;
-  // right: 20px;
-  // bottom: 0;
-  // left: 20px;
-  // margin: auto;
+ 
   text-align: center;
-  width: 100vw;
   height: fit-content;
-  // max-width: 22em;
+  max-width: 22em;
   padding: 2rem;
   // border-radius: 1rem;
   box-shadow: #0000003d 0px 3px 8px;

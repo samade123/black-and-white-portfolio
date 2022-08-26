@@ -1,48 +1,50 @@
 import { onBeforeMount, ref } from "@vue/runtime-core";
 export function handlePWAUpdates() {
 
-    // let serviceManger = {};
-    let registration = {};
-    let updateExists = false;
-    let refreshing = false;
-    const showModal = ref(false);
+    let serviceManger = {};
+    serviceManger.registration = {};
+    serviceManger.updateExists = false;
+    serviceManger.refreshing = false;
+    serviceManger.showModal = ref(false);
 
 
-    const updateAvailable = (event) => {
+    serviceManger.updateAvailable = (event) => {
         registration = event.detail;
         updateExists = true;
         showModal.value = true;
     };
 
-    const refreshApp = () => {
+    serviceManger.refreshApp = () => {
         console.debug('refresh!!')
-        updateExists = false;
+        serviceManger.updateExists = false;
         // Make sure we only send a 'skip waiting' message if the SW is waiting
-        if (!registration || !registration.waiting) return;
+        if (!serviceManger.registration || !serviceManger.registration.waiting) return;
         // Send message to SW to skip the waiting and activate the new SW
-        registration.waiting.postMessage({ type: "SKIP_WAITING" });
+        serviceManger.registration.waiting.postMessage({ type: "SKIP_WAITING" });
     };
+
+    serviceManger.closeModal = (serviceManger) => {
+        serviceManger.showModal.value = false;
+    }
 
     onBeforeMount(() => {
 
         console.log('beforeMounting')
-        document.addEventListener("swUpdated", updateAvailable, {
+        document.addEventListener("swUpdated", serviceManger.updateAvailable, {
             once: true,
         });
 
         navigator.serviceWorker.addEventListener("controllerchange", () => {
             // We'll also need to add 'refreshing' to our data originally set to false.
-            if (refreshing) return;
-            refreshing = true;
+            if (serviceManger.refreshing) return;
+            serviceManger.refreshing = true;
             // Here the actual reload of the page occurs
             window.location.reload();
         });
     });
 
     return {
-        refreshApp,
-        showModal,
-        updateExists
+        serviceManger
     };
 
 }
