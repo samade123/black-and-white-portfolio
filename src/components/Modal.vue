@@ -10,7 +10,7 @@
   <transition name="pop" appear>
     <div class="modal" role="dialog" v-if="props.showModal">
       <div class="site-img">
-        <img :src="data.image" alt="" />
+        <img :src="data.imageLarge" alt="" />
       </div>
       <div class="details">
         <div class="site-title">{{ data.name }}</div>
@@ -84,6 +84,7 @@ export default {
   width: fit-content;
   height: fit-content;
   // max-width: 22em;
+  max-height: 90vh;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
@@ -146,6 +147,10 @@ export default {
     // max-width: 100%;
     // min-height: 185px;
     max-width: 50vw;
+    max-height: 80vh;
+    border-radius: 3px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+    object-fit: cover;
 
     @media only screen and (max-width: 600px) {
       max-width: 80vw;
