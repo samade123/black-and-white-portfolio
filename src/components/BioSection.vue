@@ -27,11 +27,108 @@
 
 <script>
 import { widthFunction } from "@/composables/Mobile";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import { onMounted } from "vue";
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 export default {
   name: "BioSection",
   setup() {
     const { width, setMobile, getScreenCategory } = widthFunction();
+
+    var tl = gsap.timeline({ delay: 0.07, smoothChildTiming: true });
+    var tlTwo = gsap.timeline({ delay: 0.07, smoothChildTiming: true });
+    var tlThree = gsap.timeline({ delay: 0.07, smoothChildTiming: true });
+    var tlFour = gsap.timeline({ delay: 0.07, smoothChildTiming: true });
+
+    onMounted(() => {
+      setTimeout(() => {
+        tl.from([".bio-section .img"], {
+          // selector text, Array, or object
+          scaleX: 1.2, // any properties (not limited to CSS)
+          scaleY: 1.3, // any properties (not limited to CSS)
+          // scaleX: 0, // any properties (not limited to CSS)
+          opacity: 0,
+          duration: 1.5, // seconds
+          ease: "power2.inOut",
+          yoyo: true,
+          delay: 0.5,
+          stagger: 0.1,
+        });
+        tl.from(
+          [".bio-section .img-friend h1", ".bio-section .img-friend div"],
+          {
+            // selector text, Array, or object
+            x: 25, // any properties (not limited to CSS)
+            // scaleX: 0, // any properties (not limited to CSS)
+            opacity: 0,
+            duration: 1, // seconds
+            ease: "power2.inOut",
+            yoyo: true,
+            stagger: 0.1,
+          }
+        );
+        tlTwo.fromTo(
+          [".bio-section .img-friend h1"],
+          {
+            lineHeight: 2.2,
+          },
+          {
+            // selector text, Array, or object
+            lineHeight: 1.7,
+            duration: 0.6, // seconds
+            ease: "power2.inOut",
+            stagger: 0.2,
+            yoyo: true,
+          }
+        );
+
+        // tlThree.fromTo(
+        //   [".bio-section .img-friend .buttons-div"],
+        //   {
+        //     gridGap: "30px",
+        //   },
+        //   {
+        //     // selector text, Array, or object
+        //     gridGap: "20px",
+        //     duration: 1.2, // seconds
+        //     ease: "power2.inOut",
+        //     stagger: 0.3,
+        //     yoyo: true,
+        //   }
+        // );
+
+        tlFour.from([".work-section .jobs-array .jobs"], {
+          // selector text, Array, or object
+          y: 25, // any properties (not limited to CSS)
+          // scaleX: 0, // any properties (not limited to CSS)
+          opacity: 0,
+          duration: 1, // seconds
+          ease: "power2.inOut",
+          yoyo: true,
+          stagger: 0.3,
+          once: true,
+          pin: true,
+          scrub: true,
+        });
+
+        tl.add(tlTwo, "-=1.5");
+        // tl.add(tlThree, "-=0.4");
+        ScrollTrigger.create({
+          trigger: ".work-section .work-array",
+          start: "center bottom",
+          endTrigger: ".work-section",
+          animation: tlFour,
+          markers: true,
+          toggleActions: "play pause resume none",
+          // once: true,
+        });
+      }, 50);
+    });
 
     return { getScreenCategory };
   },
@@ -45,10 +142,11 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   grid-gap: 30px;
 
   margin: 0 auto;
-  height: 100%;
+  min-height: 90vh;
   .img {
     // width: 40vw;
     width: clamp(220px, 23vw, 400px);
