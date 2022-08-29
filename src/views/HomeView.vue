@@ -90,7 +90,11 @@
         I am a keen and avid coder, who has learned most of his front end
         development skills in my time at Event Engineering as an Intern
         developer. But I also have plenty of coding experience from completing
-        my 4 year <span>(BEng) degree in Electronics and Computer Systems Engineering</span> .
+        my 4 year
+        <span
+          >(BEng) degree in Electronics and Computer Systems Engineering</span
+        >
+        .
       </div>
 
       <div class="subtitle"><span>Education</span></div>
@@ -100,7 +104,9 @@
           v-for="course in education"
           :key="course.src"
         >
-          <a :href="course.src" target="_blank" rel="noopener">{{ course.name }}</a>
+          <a :href="course.src" target="_blank" rel="noopener">{{
+            course.name
+          }}</a>
         </div>
       </div>
       <div class="subtitle"><span>Work experience</span></div>
@@ -139,11 +145,23 @@
         </div>
       </a>
     </div>
+
     <Modal
       :showModal="showModal"
       @closeModal="showModal = false"
       :data="selectedJob"
     />
+  </div>
+  <div class="design-reference-section">
+    <p>
+      The design reference for this portfolio design can be found
+      <a
+        href="https://dribbble.com/shots/15376990-Portfolio-page-for-Java-Developer"
+        target="_blank"
+        rel="noopener"
+        >here.</a
+      >
+    </p>
   </div>
 </template>
 
@@ -207,6 +225,16 @@ export default {
         ],
       },
       {
+        name: "Agency landing page - demo",
+        description:
+          "A basic demo of an animated landing page for a creative agency.",
+        href: "https://agency-landing-demo.projectsbysam.dev/",
+        github: "https://github.com/samade123/agency-landing-page",
+        image: require("../assets/agency-demo.webp"),
+        tags: ["All", "CSS", "HTML", "JAVASCRIPT"],
+        otherFeatures: ["Responsive Design", "GSAP", "Animations"],
+      },
+      {
         name: "Calculator",
         description: "Basic calculator App",
         href: "https://calculator.projectsbysam.dev/",
@@ -217,12 +245,12 @@ export default {
       },
       {
         name: "Market Black - Concept Design",
-        description:
-          "Concept design of a e-commerce site",
+        description: "Concept design of a e-commerce site",
         href: "https://www.figma.com/file/DwlOgHgPLpL2kyf8y08w4h/Market-Black-Original?node-id=0%3A1",
-        github: "https://www.figma.com/file/DwlOgHgPLpL2kyf8y08w4h/Market-Black-Original?node-id=0%3A1",
+        github:
+          "https://www.figma.com/file/DwlOgHgPLpL2kyf8y08w4h/Market-Black-Original?node-id=0%3A1",
         image: require("../assets/market-black.webp"),
-        tags: ['All','Figma','Design' ],
+        tags: ["All", "Figma", "Design"],
         otherFeatures: [],
       },
       {
@@ -259,7 +287,6 @@ export default {
         src: "https://www.lboro.ac.uk/study/undergraduate/courses/electronic-and-computer-systems-engineering-beng/",
         dateCompleted: "2021",
       },
-
     ];
 
     const selectedJob = ref(jobs.value[0]);
@@ -436,23 +463,28 @@ export default {
       .jobs {
         display: grid;
         grid-gap: 10px;
-        grid-template-rows: 2fr 1fr;
+        grid-template-rows: auto 1fr;
         max-width: 300px;
-        height: 350px;
+        min-height: 100%;
+        place-items: center;
 
         .site-img {
           background: #0001;
           border-radius: 7px;
-          padding: 5px 0 0 0;
+          padding: 5px;
 
           transition: opacity 0.3s ease-in;
+
+          display: grid;
+          place-items: center;
+          box-sizing: border-box;
           &:hover {
             cursor: pointer;
             opacity: 0.8;
           }
           img {
             // max-width: 100%;
-            height: 185px;
+            max-height: 200px;
             max-width: 285px;
             border-radius: 3px;
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -471,7 +503,9 @@ export default {
           }
           .tag-array {
             display: flex;
-            grid-gap: 25px 8px;
+            grid-gap: 8px 8px;
+
+            flex-wrap: wrap;
 
             justify-content: center;
 
@@ -504,12 +538,12 @@ export default {
     justify-content: center;
 
     span {
-        // font-size: 1.6em;
-        font-weight: bold;
-        // color: white;
-        // background: black;
-        // padding: 0 5px;
-      }
+      // font-size: 1.6em;
+      font-weight: bold;
+      // color: white;
+      // background: black;
+      // padding: 0 5px;
+    }
 
     .subtitle {
       span {
@@ -526,8 +560,6 @@ export default {
       grid-gap: 15px;
       flex-direction: column;
       justify-content: center;
-
-      
 
       .education {
         display: flex;
