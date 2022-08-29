@@ -33,7 +33,6 @@ export default {
     const hideModal = (event) => {
       console.log(event.target, modal.value);
       if (event.target === modal.value) {
-
         showModal.value = false;
       }
     };
@@ -85,10 +84,9 @@ export default {
 
 .modal,
 .pop-leave-from {
- 
   text-align: center;
   height: fit-content;
-  max-width: 22em;
+  max-width: min(22em, 95vw);
   padding: 2rem;
   // border-radius: 1rem;
   box-shadow: #0000003d 0px 3px 8px;
@@ -102,6 +100,7 @@ export default {
   flex-direction: column;
 
   justify-content: center;
+  color: black;
 }
 .modal h1 {
   margin: 0 0 1rem;
@@ -112,14 +111,16 @@ export default {
   content: "";
   position: absolute;
   position: fixed;
-  top: 0;
+  // top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
+  // left: 0;
   z-index: 998;
   background: #2c3e5000;
   // opacity: 0.1;
   cursor: pointer;
+
+  width: 100vw;
 
   display: flex;
   grid-gap: 20px;
