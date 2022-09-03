@@ -14,10 +14,16 @@
 <script>
 import PWAModal from "@/components/PWAModal.vue";
 import { onBeforeMount, ref } from "@vue/runtime-core";
+
+import reportWebVitals from "./reportWebVitals";
+import { sendToVercelAnalytics } from "./vitals";
 export default {
   name: "App",
   components: {
     PWAModal,
+  },
+  setup() {
+    reportWebVitals(sendToVercelAnalytics);
   },
 };
 </script>

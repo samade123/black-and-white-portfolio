@@ -34,7 +34,6 @@ import { onMounted } from "vue";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
 export default {
   name: "BioSection",
   setup() {
@@ -123,7 +122,6 @@ export default {
           start: "center bottom",
           endTrigger: ".work-section",
           animation: tlFour,
-          markers: true,
           toggleActions: "play pause resume none",
           // once: true,
         });
@@ -143,7 +141,11 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  grid-gap: 30px;
+
+  @media screen and (max-width: 600px) {
+    align-items: start;
+  }
+  grid-gap: 10px 30px;
 
   margin: 0 auto;
   min-height: 90vh;

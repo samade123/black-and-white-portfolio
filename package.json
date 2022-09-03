@@ -9,13 +9,16 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "dotenv": "^16.0.2",
     "gsap": "^3.11.0",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "normalize.css": "^8.0.1",
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue-window-size": "^1.1.2",
-    "vuesax3": "^4.0.22"
+    "vuesax3": "^4.0.22",
+    "web-vitals": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
