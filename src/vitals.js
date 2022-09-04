@@ -12,10 +12,7 @@ function getConnectionSpeed() {
 
 export function sendToVercelAnalytics(metric) {
   const analyticsId = process.env.VUE_APP_VERCEL_ANALYTICS_ID;
-  console.debug(process.env.VUE_APP_VERCEL_ANALYTICS_ID)
   if (!analyticsId) {
-    console.debug("no id", analyticsId)
-
     return;
   }
 
