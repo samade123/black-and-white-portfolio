@@ -8,7 +8,7 @@
       }"
     ></div>
     <div class="img-friend">
-      <h1>Hi, I'm Sam and I'm a <span>Junior Front-end Developer</span></h1>
+      <h1>Hi, I'm Sam and I'm a <span>Front-end Developer</span></h1>
       <div>
         I am a junior front-end developer with commercial experience. I
         specialise in creating modern web apps!
