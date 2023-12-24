@@ -114,8 +114,8 @@ export default {
         description: "Weather Dashboard with weather style theming",
         href: "https://weather.projectsbysam.dev/",
         github: "https://github.com/samade123/black-and-white-portfolio",
-        image: require(`../assets/small/weather.webp`),
-        imageLarge: require(`../assets/${getScreenCategory()}/weather.webp`),
+        image: require(`../assets/small/weather-iphone.webp`),
+        imageLarge: require(`../assets/${getScreenCategory()}/weather-iphone.webp`),
         tags: ["All", "Vue.js", "CSS", "HTML", "JAVASCRIPT"],
         otherFeatures: [
           "Color themeing (by weather)",
