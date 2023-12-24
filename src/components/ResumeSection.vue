@@ -37,7 +37,7 @@
     </div>
     <div class="subtitle">Download my resume as a PDF File</div>
     <a
-      href="https://drive.google.com/file/d/1UN97qz68Bee-AdlqyMO5Q2ZXxdGFay60/view?usp=sharing"
+      href="https://drive.google.com/file/d/1-PgfJA1Bhv9RbalmCSIaEeoRV1uOnh3D/view?usp=sharing"
       target="_blank"
       rel="noopener"
     >
@@ -83,7 +83,12 @@ export default {
       {
         name: "Event engineering",
         role: "Intern Developer",
-        dateCompleted: "2019-2020",
+        dateCompleted: "2019 - 2020",
+      },
+      {
+        name: "Investcloud Ltd",
+        role: "Front End Developer",
+        dateCompleted: "2022 - Current",
       },
     ];
 
