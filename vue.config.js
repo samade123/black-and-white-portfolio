@@ -18,11 +18,6 @@ module.exports = defineConfig({
     }
   },
   chainWebpack: config => {
-    // config.plugin("copy").use(CopyPlugin, [
-    //   {
-    //     patterns: [{ from: "src/api", to: "../api" }],
-    //   },
-    // ]);
     config
       .plugin('html')
       .tap(args => {
