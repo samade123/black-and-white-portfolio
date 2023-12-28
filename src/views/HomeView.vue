@@ -1,7 +1,10 @@
 <template>
   <div class="home">
     <BioSection />
-    <WorkSection />
+    <FeaturedSection />
+    <ProjectSection/>
+
+    <!-- <WorkSection /> -->
     <ResumeSection />
     <!-- <BioSection />
     <BioSection /> -->
@@ -37,7 +40,11 @@ import { computed, ref } from "@vue/reactivity";
 import { widthFunction } from "@/composables/Mobile";
 import BioSection from "@/components/BioSection.vue";
 import WorkSection from "@/components/WorkSection.vue";
+import ProjectSection from "@/components/PersonalProjects.vue";
+
 import ResumeSection from "@/components/ResumeSection.vue";
+import FeaturedSection from "@/components/FeaturedSection.vue";
+
 // import WorkSection from "@/components/WorkSection.vue";
 
 export default {
@@ -46,6 +53,8 @@ export default {
     BioSection,
     WorkSection,
     ResumeSection,
+    FeaturedSection,
+    ProjectSection,
     // BioSection,
   },
   setup(props) {
