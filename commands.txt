@@ -1,0 +1,1 @@
+squoosh-cli 624shots_so.png --resize '{ "width": 700 }' --webp '{ "quality": 75 }' -s -700 && squoosh-cli 624shots_so.png --resize '{ "width": 1200 }' --webp '{ "quality": 75 }' -s -1200 &&  squoosh-cli 624shots_so.png --resize '{ "width": 2400 }' --webp '{ "quality": 75 }' -s -2400 && squoosh-cli 624shots_so.png --resize '{ "width": 3000 }' --webp '{ "quality": 75 }' -s -3000
