@@ -15,3 +15,10 @@
 
   }
 }
+
+.selectable-grid {
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: background-position 0.2s linear, filter 0.2s ease, background-size 0.2s linear;
+  // transition: filter 0.2s ease;
+}

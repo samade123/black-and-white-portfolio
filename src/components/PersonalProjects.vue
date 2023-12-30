@@ -9,8 +9,12 @@
       <div class="project"></div>
       <div class="project"></div> -->
 
-      <div class="project" v-for="job, index in jobs" :key="job.name" :class="{ 'selected': job.selected }"
-        @click="selectJob(index)"></div>
+      <div class="project" role='image' :aria-label='job.description' :title="job.name" v-for="job, index in jobs"
+        tabindex="0" @keypress.enter="selectJob(index)" :key="job.name"
+        :class="{ 'selected': job.selected, [job.identifier ? 'project--' + job.identifier : '']: true }"
+        @click="selectJob(index)" :style="{
+          backgroundImage: `${job.bgImage}, linear-gradient(135deg, #${job.bgColors[0]} 30%, #${job.bgColors[1]} 100%)`,
+        }"></div>
 
 
 
@@ -77,12 +81,32 @@ export default {
         image: require(`../assets/small/weather-iphone.webp`),
         imageLarge: require(`../assets/${getScreenCategory()}/weather-iphone.webp`),
         selected: true,
+        bgImage: 'url(' + require('@/assets/featured/weather-mobile.webp') + ')',
+        // bgColors: ['e2e0e3', 'e2e0e3'],
+        bgColors: ['eff1f2', '87b4c6'],
+
+        identifier: 'weather',
         tags: ["All", "Vue.js", "CSS", "HTML", "JAVASCRIPT"],
         otherFeatures: [
           "Color themeing (by weather)",
           "SASS",
           "Adaptive Design",
         ],
+      },
+      {
+        name: "Presentation Viewer/Database",
+        description:
+          "Basic Design task required of me for a front end interview",
+        href: "",
+        github: "https://github.com/samade123/FE-developer-exercise-reach-plc",
+        image: require(`../assets/small/quick-design-task.webp`),
+        imageLarge: require(`../assets/${getScreenCategory()}/quick-design-task.webp`),
+        bgColors: ['e7dfdc', 'e7dfdc'],
+        identifier: 'cac',
+        selected: false,
+        bgImage: 'url(' + require('@/assets/featured/cac.webp') + ')',
+        tags: ["All", "CSS", "HTML", "JAVASCRIPT"],
+        otherFeatures: ["Responsive Design"],
       },
       {
         name: "Agency landing page - demo",
@@ -94,21 +118,13 @@ export default {
           "https://dribbble.com/shots/15916355/attachments/7746820?mode=media",
         image: require(`../assets/small/agency-demo.webp`),
         imageLarge: require(`../assets/${getScreenCategory()}/agency-demo.webp`),
+        bgColors: ['c6ba7e', 'd0a697'],
+        identifier: 'agency',
         selected: false,
+        bgImage: 'url(' + require('@/assets/featured/agency.webp') + ')',
         tags: ["All", "CSS", "HTML", "JAVASCRIPT"],
         otherFeatures: ["Responsive Design", "GSAP", "Animations"],
       },
-      // {
-      //   name: "Calculator",
-      //   description: "Basic calculator App",
-      //   href: "https://calculator.projectsbysam.dev/",
-      //   github: "https://github.com/samade123/calculator",
-      //   image: require(`../assets/small/calc.webp`),
-      //   imageLarge: require(`../assets/${getScreenCategory()}/calc.webp`),
-      // selected: false,
-      //   tags: ["All", "Vue.js", "CSS", "HTML", "JAVASCRIPT"],
-      //   otherFeatures: ["SASS", "Responsive Design"],
-      // },
       {
         name: "Market Black - Concept Design",
         description: "Concept design of a e-commerce site",
@@ -117,22 +133,12 @@ export default {
           "https://www.figma.com/file/DwlOgHgPLpL2kyf8y08w4h/Market-Black-Original?node-id=0%3A1",
         image: require(`../assets/small/market-black.webp`),
         imageLarge: require(`../assets/${getScreenCategory()}/market-black.webp`),
+        bgImage: 'url(' + require('@/assets/featured/market-black.webp') + ')',
+        bgColors: ['cfc9c6', 'cfc9c6'],
+        identifier: 'figma',
         selected: false,
         tags: ["All", "Figma", "Design"],
         otherFeatures: [],
-      },
-      {
-        name: "Quick Design Task",
-        description:
-          "Basic Design task required of me for a front end interview",
-        href: "",
-        github: "https://github.com/samade123/FE-developer-exercise-reach-plc",
-        image: require(`../assets/small/quick-design-task.webp`),
-        imageLarge: require(`../assets/${getScreenCategory()}/quick-design-task.webp`),
-        // image: require("../assets/medium/quick-design-task.webp"),
-        selected: false,
-        tags: ["All", "CSS", "HTML", "JAVASCRIPT"],
-        otherFeatures: ["Responsive Design"],
       },
     ]);
 
@@ -168,7 +174,7 @@ export default {
     gap: 0.5em;
     height: 250px;
     width: 100%;
-    transition: grid-template-columns 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: grid-template-columns 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.125);
 
     &:has(.project:first-child.selected) {
       grid-template-columns: 4fr 1fr 1fr 1fr 0fr 0fr 0fr;
@@ -187,14 +193,93 @@ export default {
     }
 
     .project {
-      // transition: grid-column 0.4s ease;
-      // transition: grid-column 0.4s ease allow-discrete;
-      background: blue;
+      background-color: var(--section-bg-color, blue);
       border-radius: 14px;
+      outline-color: color-mix(in srgb, var(--section-bg-color) 20%, #0a0a0a);
 
-      &:hover {
+
+      @extend .selectable-grid;
+
+      &:hover:not(.selected) {
         cursor: pointer;
         filter: brightness(0.95);
+      }
+      &:focus-within {
+        outline-style: dashed;
+        outline-width: 2px;
+      }
+
+      &--weather {
+        --section-bg-color: #e0dfe1;
+        background-position-x: -20px, 0;
+        background-position-y: 100px, 0;
+        background-size: auto 250px, cover;
+
+
+        &:hover:not(.selected) {
+          background-position-y: 95px, 0;
+
+        }
+
+        &.selected {
+          background-position-y: 0px, 0;
+          background-size: auto 280px, cover;
+        }
+
+      }
+
+      &--agency {
+        --section-bg-color: #e0dfe1;
+        background-position: 50% 30px, 0 0;
+        background-size: auto 250px;
+
+
+
+        &:hover:not(.selected) {
+          background-position: 50% 30px, 0 0;
+          background-size: auto 280px;
+        }
+
+        &.selected {
+          background-position: -33px center, 0 0;
+          background-size: auto 300px;
+        }
+      }
+
+      &--cac {
+        --section-bg-color: #e0dfe1;
+        background-position: 50% 30px, 0 0;
+        background-size: auto 180px, cover;
+
+
+
+        &:hover:not(.selected) {
+          background-position: 50% 30px, 0 0;
+          background-size: auto 200px, cover;
+        }
+
+        &.selected {
+          background-position: 0 center, 0 0;
+          background-size: auto 250px, cover;
+        }
+      }
+
+      &--figma {
+        --section-bg-color: #e0dfe1;
+        background-position: 50% 30px, 0 0;
+        background-size: auto 230px, cover;
+
+
+
+        &:hover:not(.selected) {
+          background-position: 50% 30px, 0 0;
+          background-size: auto 250px, cover;
+        }
+
+        &.selected {
+          background-position: -20px center, 0 0;
+          background-size: auto 260px, cover;
+        }
       }
     }
   }
