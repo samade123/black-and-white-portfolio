@@ -1,12 +1,9 @@
 <template>
   <div class="bio-section" id="bio">
-    <div
-      class="img"
-      :style="{
-        backgroundImage:
-          'url(' + require(`@/assets/${getScreenCategory()}/me.webp`) + ')',
-      }"
-    ></div>
+    <div class="img" :style="{
+      backgroundImage:
+        'url(' + require(`@/assets/${getScreenCategory()}/me.webp`) + ')',
+    }"></div>
     <div class="img-friend">
       <h1>Hi, I'm Sam and I'm a <span>Front-end Developer</span></h1>
       <div>
@@ -146,10 +143,12 @@ export default {
   @media screen and (max-width: 600px) {
     align-items: start;
   }
+
   grid-gap: 10px 30px;
 
   margin: 0 auto;
   min-height: 90vh;
+
   .img {
     // width: 40vw;
     width: clamp(220px, 23vw, 400px);
@@ -176,7 +175,8 @@ export default {
       line-height: 1.7;
       padding: 5px;
     }
-    & > * {
+
+    &>* {
       margin: 0;
     }
   }
