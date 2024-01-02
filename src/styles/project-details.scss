@@ -1,0 +1,118 @@
+@use "@/styles/theme.scss"as *;
+@use "@/styles/style.scss"as *;
+
+.section {
+  --project-detail-light-color: #f7f7f7;
+  --project-detail-dark-color: #2c3e50;
+  --project-detail-color: var(--project-detail-light-color);
+
+
+  .section-main {
+
+
+    .project {
+      display: grid;
+      place-items: stretch;
+      grid-template-columns: 1fr 1fr;
+      padding: 1em;
+      color: var(--project-detail-color);
+      overflow-x: hidden;
+
+
+      &:not(.selected) {
+        .project-details {
+          // display: none;
+          opacity: 0;
+          height: 0%;
+          // width: 0;
+        }
+      }
+
+      .project-details {
+        background: black;
+        grid-column: 2;
+        border-radius: 14px;
+        padding: 0.5em;
+        opacity: 1;
+        transition: opacity 0.2s ease-in, height 0.4s ease;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em 0;
+        text-align: start;
+        // text-wrap: none;
+        overflow-x: hidden;
+        // max-height: 60%;
+
+
+        /* From https://css.glass */
+        background: #ffffff33;
+        background-color: color-mix(in srgb, #cccc, var(--section-bg-color, blue) 60%);
+        color: color-mix(in srgb, var(--project-detail-light-color) 90%, var(--section-bg-color, blue));
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        font-size: 1em;
+
+
+        &__title {
+          margin: 0;
+          font-size: 1.1em;
+          color: white;
+
+        }
+
+        &__description {
+          // text-wrap: balance;
+          margin: 0;
+          font-size: 0.95em;
+          text-align: start;
+          font-weight: 500;
+          color: color-mix(in srgb, var(--project-detail-dark-color) 70%, var(--section-bg-color, blue));
+
+
+        }
+
+        &__skills {
+          display: flex;
+          justify-content: flex-start;
+          gap: 0.4em;
+          .project-details__skill {
+            // display: none;
+            height: 30px;
+            aspect-ratio: 1;
+
+            background-size: cover;
+            &.vue-js {
+              background-image: url('../assets/logos/vue.svg');
+            }
+            &.css {
+              background-image: url('../assets/logos/css.svg');
+            }
+            &.html {
+              background-image: url('../assets/logos/html.svg');
+            }
+
+            &.javascript {
+              background-image: url('../assets/logos/javascript.svg');
+            }
+            &.typescript {
+              background-image: url('../assets/logos/typescript.svg');
+            }
+            &.figma {
+              background-image: url('../assets/logos/figma.svg');
+            }
+            &.angular {
+              background-image: url('../assets/logos/angular.svg');
+            }
+            &.all {
+              display: none;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
