@@ -38,7 +38,10 @@
 
           <div class="hidden-details_images">
             <div class="agency"></div>
-            <div class="skills"></div>
+            <div class="skills">
+              <div class="hidden-details__skill" v-for="skill in grid.details.skills" :key='skill.name'
+                :class="skill.name.toLowerCase()"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -76,13 +79,13 @@ export default {
   name: "FeaturedSection",
 
   setup() {
-    const sectionGrids = [{ name: 'barclays', details: { title: 'Office Quiz Leaderboard', top: false, caseStudy: 'An electron based database which allowed Barclays offices in mulitple regions to record gaming scores.', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }] }, extra: { state: true, images: [{ src: 'url(' + require('@/assets/large/barclays-desktop.webp') + ')', position: 'bullring' }, { src: 'url(' + require('@/assets/large/barclays-desktop.webp') + ')', position: 'cac' }] } },
-    { name: 'james-bond', details: { title: 'James Bond - Pod Experience', top: false, caseStudy: 'An in mall pod experience ', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }] }, },
-    { name: 'bullring', details: { title: 'Bullring Shopping Centre - Crystal Maze', top: false, caseStudy: 'Crystal Maze Leaderboard/Database - A shopping center gaming experience. Based off the Barclays version ', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }] }, extra: { state: true, } },
-    { name: 'weather', details: { title: 'Weather Dashboard', top: true, caseStudy: 'Dashboard with dynamic themeing and location Search capabilities', skills: [{ name: 'vue' }, { name: 'js' }] }, extra: { state: true, } },
-    { name: 'cac', details: { title: 'Presentation Viewer - Phase 1', top: true, caseStudy: 'Converted papaer database of hymns into digital format and converted it into a a presentation format based off the marp markdown language fo, for easy ue and editing. A presentation viewer and database based off the Marp markup language; integrated with Notion database REST API', skills: [{ name: 'Angular' }, { name: 'ts' }] } },
+    const sectionGrids = [{ name: 'barclays', details: { title: 'Office Quiz Leaderboard', top: false, caseStudy: 'An electron based database which allowed Barclays offices in mulitple regions to record gaming scores.', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }, { name: 'scss' }] }, extra: { state: true, images: [{ src: 'url(' + require('@/assets/large/barclays-desktop.webp') + ')', position: 'bullring' }, { src: 'url(' + require('@/assets/large/barclays-desktop.webp') + ')', position: 'cac' }] } },
+    { name: 'james-bond', details: { title: 'James Bond - Pod Experience', top: false, caseStudy: 'An in mall pod experience as a marketing tool for the 2021 James Bond Movie', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }, { name: 'scss' }] }, },
+    { name: 'bullring', details: { title: 'Bullring Shopping Centre - Crystal Maze', top: false, caseStudy: 'Crystal Maze Leaderboard/Database - A shopping center gaming experience. Based off the Barclays version ', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }, { name: 'scss' }] }, extra: { state: true, } },
+    { name: 'weather', details: { title: 'Weather Dashboard', top: true, caseStudy: 'Dashboard with dynamic themeing and location Search capabilities', skills: [{ name: 'vue' }, { name: 'js' }, { name: 'scss' },] }, extra: { state: true, } },
+    { name: 'cac', details: { title: 'Presentation Viewer - Phase 1', top: true, caseStudy: 'Converted papaer database of hymns into digital format and converted it into a a presentation format based off the marp markdown language fo, for easy ue and editing. A presentation viewer and database based off the Marp markup language; integrated with Notion database REST API', skills: [{ name: 'Angular' }, { name: 'ts' }, { name: 'scss' }] } },
     { name: 'hsbc', details: { title: 'HSBC Fund Management', top: true, caseStudy: 'A fund management portal for High Net Worth and Very High Net Worth clients and Agents, Tailored for HSBC and Schroders', agency: 'InvestCloud', skills: [{ name: 'css' }, { name: 'HTML' }] }, extra: { state: true, } },
-    { name: 'sky', details: { title: 'Sky Movies - Pod experience', top: true, caseStudy: '', agency: 'event engineering', skills: [{ name: 'electron' }, { name: 'vue' }] } },
+    { name: 'sky', details: { title: 'Sky Movies - Pod experience', top: true, caseStudy: '', agency: 'event engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'scss' }] } },
     ]
     const clients = [{ name: 'sky', img: require('@/assets/logos/sky.svg') },
     { name: 'bullring', img: require('@/assets/logos/bullring.svg') },
@@ -190,6 +193,18 @@ export default {
         &:focus-within {
           filter: brightness(0.9);
           cursor: pointer;
+
+          .hidden-details__see-more {
+            // font-weight: 700;
+
+            &:hover,
+            &:focus-within {
+
+              .underline {
+                width: 100cqw;
+              }
+            }
+          }
         }
       }
 
@@ -262,25 +277,86 @@ export default {
           font-size: 0.8em;
         }
 
+        .skills {
+          display: flex;
+          justify-content: flex-start;
+          gap: 0.4em;
+
+          .hidden-details__skill {
+            // display: none;
+            height: 30px;
+            aspect-ratio: 1;
+
+            background-size: cover;
+
+            &.vue-js,
+            &.vue {
+              background-image: url('../assets/logos/vue.svg');
+            }
+
+            &.css {
+              background-image: url('../assets/logos/css.svg');
+            }
+
+            &.html {
+              background-image: url('../assets/logos/html.svg');
+            }
+
+            &.javascript,
+            &.js {
+              background-image: url('../assets/logos/javascript.svg');
+            }
+
+            &.typescript,
+            &.ts {
+              background-image: url('../assets/logos/typescript.svg');
+            }
+
+            &.figma {
+              background-image: url('../assets/logos/figma.svg');
+            }
+
+            &.angular {
+              background-image: url('../assets/logos/angular.svg');
+            }
+
+            &.electron {
+              background-image: url('../assets/logos/electron.svg');
+            }
+
+            &.scss {
+              background-image: url('../assets/logos/scss.svg');
+            }
+
+            &.all {
+              display: none;
+            }
+          }
+        }
+
         .hidden-details__see-more {
           container: see-more / inline-size;
           width: 4lh;
           height: 1lh;
+          font-weight: 700;
 
           .underline {
             width: 0cqw;
             // height: 2px;
             display: block;
-            transition: width 0.2s ease;
+            transition: width 0.2s ease, opacity 0.1s linear;
             border: 1px solid var(--hidden-detail-color, --hidden-detail-dark-color);
+            box-sizing: border-box;
+            // opacity: 0;
           }
 
           &:hover {
-            font-weight: 700;
 
             // text-decoration: underline;
             .underline {
               width: 100cqw;
+              // border-width: 1px;
+              // opacity: 1;
 
             }
           }
@@ -345,9 +421,9 @@ export default {
     }
 
     &--codestacks .logo-wrapper:is(:hover, :focus-within) {
-    height: 200px;
-    cursor: pointer;
-  }
+      height: 200px;
+      cursor: pointer;
+    }
 
 
     &--right {
@@ -355,7 +431,7 @@ export default {
     }
   }
 
-  
+
 }
 
 @media only screen and (max-width: 600px) {
