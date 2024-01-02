@@ -4,8 +4,9 @@
     <FeaturedSection />
     <ProjectSection/>
 
+    <!-- <ResumeSection /> -->
+
     <!-- <WorkSection /> -->
-    <ResumeSection />
     <!-- <BioSection />
     <BioSection /> -->
 
