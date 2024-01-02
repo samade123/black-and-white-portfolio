@@ -10,15 +10,11 @@
       <div class="project"></div> -->
 
       <div class="project" role='image' :aria-label='job.description' :title="job.name" v-for="job, index in jobs"
-        tabindex="0" @keypress.enter="selectJob(index)" :key="job.name"
+        :tabindex="job.selected ? false : '0'" @keypress.enter="selectJob(index)" :key="job.name"
         :class="{ 'selected': job.selected, [job.identifier ? 'project--' + job.identifier : '']: true }"
         @click="selectJob(index)" :style="{
           backgroundImage: `${job.bgImage}, linear-gradient(135deg, #${job.bgColors[0]} 30%, #${job.bgColors[1]} 100%)`,
         }"></div>
-
-
-
-
     </div>
   </div>
   <Modal :showModal="showModal" @closeModal="showModal = false" :data="selectedJob" />
@@ -200,10 +196,12 @@ export default {
 
       @extend .selectable-grid;
 
-      &:hover:not(.selected) {
+      &:hover:not(.selected),
+      &:focus-within:not(.selected) {
         cursor: pointer;
         filter: brightness(0.95);
       }
+
       &:focus-within {
         outline-style: dashed;
         outline-width: 2px;
@@ -216,7 +214,8 @@ export default {
         background-size: auto 250px, cover;
 
 
-        &:hover:not(.selected) {
+        &:hover:not(.selected),
+        &:focus-with:not(.selected) {
           background-position-y: 95px, 0;
 
         }
@@ -235,7 +234,8 @@ export default {
 
 
 
-        &:hover:not(.selected) {
+        &:hover:not(.selected),
+        &:focus-with:not(.selected) {
           background-position: 50% 30px, 0 0;
           background-size: auto 280px;
         }
@@ -253,7 +253,8 @@ export default {
 
 
 
-        &:hover:not(.selected) {
+        &:hover:not(.selected),
+        &:focus-with:not(.selected) {
           background-position: 50% 30px, 0 0;
           background-size: auto 200px, cover;
         }
@@ -271,7 +272,8 @@ export default {
 
 
 
-        &:hover:not(.selected) {
+        &:hover:not(.selected),
+        &:focus-with:not(.selected) {
           background-position: 50% 30px, 0 0;
           background-size: auto 250px, cover;
         }
@@ -283,5 +285,4 @@ export default {
       }
     }
   }
-}
-</style>
+}</style>
