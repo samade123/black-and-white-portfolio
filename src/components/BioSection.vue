@@ -152,9 +152,12 @@ export default {
   .img {
     // width: 40vw;
     width: clamp(220px, 23vw, 400px);
-    aspect-ratio: 5/ 6;
+    aspect-ratio: 1;
+    // aspect-ratio: 5/ 6;
     filter: grayscale(100%);
-    border-radius: 60%;
+    // border-radius: 60%;
+    border-radius: 14px;
+
 
     background-position: center top;
     background-repeat: no-repeat;
@@ -168,12 +171,15 @@ export default {
     flex-direction: column;
     grid-gap: 30px;
     justify-content: center;
+    text-wrap: balance;
 
     span {
       background: black;
       color: white;
       line-height: 1.7;
-      padding: 5px;
+      padding: 5px 8px;
+      border-radius: 6px;
+
     }
 
     &>* {
