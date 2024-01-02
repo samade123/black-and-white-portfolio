@@ -1,0 +1,165 @@
+@use "@/styles/theme.scss"as *;
+@use "@/styles/style.scss"as *;
+
+.section {
+  .section-main {
+    div.section-grid {
+      container-type: inline-size;
+      background-image: var(--bg-image);
+      --barclays-theme-color: #f7fcfe;
+      --james-bond-theme-color: #0e0e45;
+      --weather-theme-color: #e0dfe1;
+      --hsbc-theme-color: #dd9fa2;
+      --bullring-theme-color: #600000;
+      --hidden-detail-light-color: #fafafa;
+      --hidden-detail-dark-color: #2c3e50;
+      --hidden-detail-color: var(--hidden-detail-dark-color);
+      color: var(--hidden-detail-color, --hidden-detail-dark-color);
+
+
+      &--barclays {
+        grid-row: 1/span 8;
+        grid-column: 1/span 6;
+
+        --section-bg-color: var(--barclays-theme-color, #f7fcfe);
+        background-position: -40px 10px;
+        --bg-image: url('../assets/large/barclays-desktop.webp');
+
+        &:hover,
+        &:focus-within {
+          background-position: 0 10px;
+        }
+      }
+
+      &--james-bond {
+        // --section-bg-color: #0e0e45;
+        --section-bg-color: var(--james-bond-theme-color, #0e0e45);
+        --hidden-detail-color: var(--hidden-detail-light-color);
+
+
+        grid-row: span 5;
+        grid-column: span 12;
+        background-size: cover;
+        background-position: 0 -100px;
+        // color: #fafafa;
+        --bg-image: url('../assets/featured/james-bond.webp');
+
+      }
+
+      &--bullring {
+        grid-row: span 12;
+        grid-column: span 6;
+        background-size: cover;
+        --section-bg-color: var(--bullring-theme-color, #600000);
+        --hidden-detail-color: var(--hidden-detail-light-color);
+
+        // color: #fafafa;
+
+
+        background-position: right 0;
+        --bg-image: url('../assets/featured/bullring.webp');
+
+      }
+
+      &--weather {
+        grid-row: 9/span 12;
+        grid-column: 1/span 6;
+        --section-bg-color: #e0dfe1;
+        --section-bg-color: var(--weather-theme-color, #e0dfe1);
+
+
+        background-position: 0 75px;
+        // background-position: 0 16vh;
+
+        background-size: 100% auto;
+        // background-size: calc(100cqh / 4) auto;
+        --bg-image: url('../assets/featured/weather-mobile.webp');
+
+
+
+        &:hover,
+        &:focus-within {
+          background-position: 0% 50px;
+          // background-position: 0 10vh;
+
+        }
+      }
+
+      &--hsbc {
+        // place-items: start stretch;
+
+        grid-row: 13/span 8;
+        grid-column: 19/span 6;
+        --section-bg-color: var(--hsbc-theme-color, #dd9fa2);
+        background-size: cover;
+        background-position: 50px 50px;
+        --bg-image: url('../assets/featured/hsbc.webp');
+
+
+        &:hover,
+        &:focus-within {
+          background-position: 20px 40px;
+
+        }
+
+      }
+
+      &--cac {
+        grid-row: 6/span 11;
+        grid-column: 7/span 12;
+        --section-bg-color: #e8e0de;
+        background-position: -60px 0;
+
+        --bg-image: url('../assets/featured/cac.webp');
+
+
+        &:hover .section-grid__cancel {
+          display: block;
+        }
+
+        .section-grid__cancel {
+          text-align: end;
+          padding: 5px 6px;
+          z-index: 34;
+
+          // &:hover {
+          //   color: red;
+          // }
+        }
+
+
+        &:hover,
+        &:focus-within {
+          background-position: 0 0;
+        }
+
+      }
+
+      &--sky {
+        grid-row: 17/span 4;
+        grid-column: 7/span 12;
+        background-size: cover;
+        background-position: 0 center;
+        --bg-image: url('../assets/featured/sky-go.webp');
+        // --hidden-detail-color: var(--hidden-detail-light-color);
+
+
+      }
+
+      &--top-detail {
+        place-items: start stretch;
+
+        .hidden-details {
+          border-radius: 14px 14px 0px 0px;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+@import "./feature-section-grid-extra.scss";

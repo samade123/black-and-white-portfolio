@@ -1,0 +1,180 @@
+@use "@/styles/theme.scss"as *;
+@use "@/styles/style.scss"as *;
+
+.section {
+  :is(.section-main--extra).section-main {
+
+    // &[class^="section-main--"],
+    // &[class*=" section-main--"] {
+    div.section-grid {
+      filter: grayscale(1) brightness(0.9);
+      pointer-events: none;
+
+      &--cac {
+        pointer-events: auto;
+
+      }
+
+
+      .hidden-details__see-more {
+        display: none;
+      }
+
+
+      .hidden-details {
+        opacity: 0;
+
+      }
+
+    }
+
+    &--barclays div.section-grid {
+      &--barclays {
+        filter: none;
+
+        pointer-events: auto;
+
+
+        .hidden-details {
+          opacity: 1;
+        }
+      }
+
+      &--bullring {
+        --bg-image: url('../assets/featured/barclays-1.webp');
+        --section-bg-color: #93cdeb;
+        background-size: contain;
+        filter: none;
+        background-position: 0 140%;
+
+      }
+
+      &--cac {
+        --bg-image: url('../assets/featured/barclays.webp');
+        --section-bg-color: #93cdeb;
+        background-size: auto 105%;
+        filter: none;
+        background-position: left bottom;
+
+        .section-grid__cancel {
+          display: block;
+        }
+
+      }
+
+    }
+
+    &--weather div.section-grid {
+      &--weather {
+        filter: none;
+        --section-bg-color: #f6a932aa;
+        pointer-events: auto;
+
+        .hidden-details {
+          opacity: 1;
+        }
+      }
+
+      &--hsbc {
+        --bg-image: url('../assets/medium/weather-iphone.webp'), linear-gradient(125deg, rgba(193, 195, 196, 1) 30%, #f6a932 100%);
+
+        --section-bg-color: var(--weather-theme-color);
+
+        background-size: auto 85%, cover;
+        filter: none;
+        background-position: center;
+
+      }
+
+      &--cac {
+        --bg-image: url('../assets/featured/weather-1.webp'), linear-gradient(125deg, rgba(193, 195, 196, 1) 30%, rgba(246, 169, 50, 1) 100%);
+        // background: linear-gradient(125deg, rgba(193,195,196,1) 30%, rgba(246,169,50,1) 100%);
+
+        --section-bg-color: #93cdeb;
+        background-size: auto 100%;
+        filter: none;
+        background-position: center bottom;
+
+        .section-grid__cancel {
+          display: block;
+        }
+
+      }
+
+    }
+
+    &--hsbc div.section-grid {
+      &--hsbc {
+        filter: none;
+        // --section-bg-color: #f6a932aa;
+        pointer-events: auto;
+
+        .hidden-details {
+          opacity: 1;
+        }
+      }
+
+      &--cac {
+        --bg-image: url('../assets/featured/hsbc-2.webp');
+        // background: linear-gradient(125deg, rgba(193,195,196,1) 30%, rgba(246,169,50,1) 100%);
+
+        // --section-bg-color: #93cdeb;
+        --section-bg-color: var(--hsbc-theme-color, #dd9fa2);
+
+        // background-size: auto 120%;
+        filter: none;
+        // background-position: right bottom;
+
+        .section-grid__cancel {
+          display: block;
+        }
+
+      }
+
+    }
+
+    &--bullring div.section-grid {
+      &--bullring {
+        filter: none;
+        // --section-bg-color: #f6a932aa;
+        pointer-events: auto;
+
+        .hidden-details {
+          opacity: 1;
+        }
+      }
+
+      &--weather {
+        background-size: contain;
+        // --bg-image: url('../assets/featured/bullring-1.webp'), linear-gradient(125deg, #f6a932 2%, var(--bullring-theme-color) 100%);
+        --bg-image: url('../assets/featured/bullring-1.webp');
+
+        // --bullring-theme-color: #60000055;
+        --section-bg-color: var(--hsbc-theme-color);
+
+
+        filter: none;
+        background-position: center 80%, 100%;
+        background-size: 90% auto, 100% auto;
+      }
+
+      &--cac {
+        --bg-image: url('../assets/featured/bullring-2.webp');
+        // background: linear-gradient(125deg, rgba(193,195,196,1) 30%, rgba(246,169,50,1) 100%);
+
+        // --section-bg-color: #93cdeb;
+        --section-bg-color: var(--hsbc-theme-color, #dd9fa2);
+
+        // background-size: auto 120%;
+        filter: none;
+        // background-position: right bottom;
+
+        .section-grid__cancel {
+          display: block;
+        }
+
+      }
+
+    }
+  }
+}

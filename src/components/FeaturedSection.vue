@@ -1,20 +1,39 @@
 <template>
   <div class="featured-section section" id="featured">
-    <h2 class="featured-section__title section__title">Featured Client Work</h2>
+    <h2 class="featured-section__title section__title">Featured Projects</h2>
 
-    <div class="section-main">
+    <div class="section-main"
+      :class="{ ['section-main--'.concat(displayExtraClass)]: displayExtra, 'section-main--extra': displayExtra }">
+      <!-- <div class="section-grid" v-for="grid in  sectionGrids " tabindex="0" :key="grid.name"
+      @click="clickSectionGrid(grid)"
+      :class="{ ['section-grid--' + grid.name]: true, 'section-grid--top-detail': grid.details.top }" :style="{
+        backgroundImage: displayExtraImages[grid.name].src,
+      }" :aria-label="grid.name" :title="grid.name"> -->
 
       <div class="section-grid" v-for="grid in  sectionGrids " tabindex="0" :key="grid.name"
-        :class="{ ['section-grid--' + grid.name]: true, 'section-grid--top-detail': grid.details.top }" :style="{
-          backgroundImage: grid.img,
-        }
-          " :aria-label="grid.name" :title="grid.name">
+        @click="clickSectionGrid(grid)" @keypress.enter="clickSectionGrid(grid)"
+        :class="{ ['section-grid--' + grid.name]: true, 'section-grid--top-detail': grid.details.top }"
+        :aria-label="grid.name" :title="grid.name">
+
+        <div class="section-grid__cancel" v-if='displayExtra' role="button" title="Go back" @click="resetGridImages()"
+          @keypress.enter="resetGridImages()">
+          <img src="@/assets/fonts/times.svg" v-svg-inline alt="cancel button" tabindex="0" class="section-grid__icon">
+        </div>
         <div class="hidden-details" v-if="grid.details">
           <h3 class="hidden-details__title">
             {{ grid.details.title }}
           </h3>
           <p class="hidden-details__desc">
             {{ grid.details.caseStudy }}
+            <br>
+          <div class="hidden-details__see-more" v-if="grid.extra" tabindex="0">
+            <!-- <div> -->
+            See More
+            <!-- </div> -->
+            <span class="underline"></span>
+            <br>
+
+          </div>
           </p>
 
           <div class="hidden-details_images">
@@ -27,17 +46,22 @@
   </div>
 
 
-  <div class="section">
+  <div class="section section--clients">
     <h2 class="section__title">Clients</h2>
     <div class="section-partial section-partial--right">
-      <img class="logo" v-svg-inline v-for="logo in  clients" :key="logo.name" :class="'logo--' + logo.name"
-        :aria-label="logo.name" :title="logo.name" :src="logo.img">
+      <div class="logo-wrapper" v-for="logo in  clients" :key="logo.name">
+        <img class="logo" v-svg-inline :class="'logo--' + logo.name" :aria-label="logo.name" :title="logo.name"
+          :src="logo.img">
+      </div>
     </div>
 
-    <h2 class="section__title">Codestacks</h2>
-    <div class="section-partial">
-      <img class="logo" v-svg-inline v-for="logo in  topSkills " :key="logo.name" :class="'logo--' + logo.name"
-        :aria-label="logo.name" :title="logo.name" :src="logo.img">
+    <h2 class="section__title ">Codestacks</h2>
+    <div class="section-partial section-partial--codestacks">
+      <div class="logo-wrapper" v-for="logo in  topSkills" :key="logo.name">
+
+        <img class="logo" v-svg-inline :class="'logo--' + logo.name" :aria-label="logo.name" :title="logo.name"
+          :src="logo.img">
+      </div>
 
     </div>
   </div>
@@ -45,22 +69,21 @@
 
 <script>
 import { computed, ref } from "@vue/reactivity";
+import { nextTick } from "vue";
 // import Modal from "@/components/Modal.vue";
 
 export default {
   name: "FeaturedSection",
 
   setup() {
-    const sectionGrids = [{ name: 'barclays', img: 'url(' + require('@/assets/large/barclays-desktop.webp') + ')', details: { title: 'Office Quiz Leaderboard', top: false, caseStudy: 'An electron based database which allowed Barclays offices in mulitple regions to record gaming scores.', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }] }, },
-    { name: 'james-bond', img: 'url(' + require('@/assets/featured/james-bond.webp') + ')', details: { title: 'James Bond - Pod Experience', top: false, caseStudy: 'An in mall pod experience ', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }] }, },
-    { name: 'bullring', img: 'url(' + require('@/assets/featured/bullring.webp') + ')', details: { title: 'Bullring Shopping Centre - Crystal Maze', top: false, caseStudy: 'Crystal Maze Leaderboard/Database - A shopping center gaming experience. Based off the Barclays version ', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }] } },
-    { name: 'weather', img: 'url(' + require('@/assets/featured/weather-mobile.webp') + ')', details: { title: 'Weather Dashboard', top: true, caseStudy: 'Dashboard with dynamic themeing and location Search capabilities', skills: [{ name: 'vue' }, { name: 'js' }] } },
-    { name: 'cac', img: 'url(' + require('@/assets/featured/cac.webp') + ')', details: { title: 'Presentation Viewer', top: false, caseStudy: 'A presentation viewer and database based off the Marp markup language; integrated with Notion database REST API', skills: [{ name: 'Angular' }, { name: 'ts' }] } },
-    { name: 'hsbc', img: 'url(' + require('@/assets/featured/hsbc.webp') + ')', details: { title: 'HSBC Fund Management', top: true, caseStudy: 'A fund management portal for High Net Worth and Very High Net Worth clients and Agents, Tailored for HSBC and Schroders', agency: 'InvestCloud', skills: [{ name: 'css' }, { name: 'HTML' }] } },
-    { name: 'sky', img: 'url(' + require('@/assets/featured/sky-go.webp') + ')', details: { title: 'Sky Movies - Pod experience', top: true, caseStudy: '', agency: 'event engineering', skills: [{ name: 'electron' }, { name: 'vue' }] } },
+    const sectionGrids = [{ name: 'barclays', details: { title: 'Office Quiz Leaderboard', top: false, caseStudy: 'An electron based database which allowed Barclays offices in mulitple regions to record gaming scores.', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }] }, extra: { state: true, images: [{ src: 'url(' + require('@/assets/large/barclays-desktop.webp') + ')', position: 'bullring' }, { src: 'url(' + require('@/assets/large/barclays-desktop.webp') + ')', position: 'cac' }] } },
+    { name: 'james-bond', details: { title: 'James Bond - Pod Experience', top: false, caseStudy: 'An in mall pod experience ', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }] }, },
+    { name: 'bullring', details: { title: 'Bullring Shopping Centre - Crystal Maze', top: false, caseStudy: 'Crystal Maze Leaderboard/Database - A shopping center gaming experience. Based off the Barclays version ', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }] }, extra: { state: true, } },
+    { name: 'weather', details: { title: 'Weather Dashboard', top: true, caseStudy: 'Dashboard with dynamic themeing and location Search capabilities', skills: [{ name: 'vue' }, { name: 'js' }] }, extra: { state: true, } },
+    { name: 'cac', details: { title: 'Presentation Viewer - Phase 1', top: true, caseStudy: 'Converted papaer database of hymns into digital format and converted it into a a presentation format based off the marp markdown language fo, for easy ue and editing. A presentation viewer and database based off the Marp markup language; integrated with Notion database REST API', skills: [{ name: 'Angular' }, { name: 'ts' }] } },
+    { name: 'hsbc', details: { title: 'HSBC Fund Management', top: true, caseStudy: 'A fund management portal for High Net Worth and Very High Net Worth clients and Agents, Tailored for HSBC and Schroders', agency: 'InvestCloud', skills: [{ name: 'css' }, { name: 'HTML' }] }, extra: { state: true, } },
+    { name: 'sky', details: { title: 'Sky Movies - Pod experience', top: true, caseStudy: '', agency: 'event engineering', skills: [{ name: 'electron' }, { name: 'vue' }] } },
     ]
-
-    // const clients = [{ name: 'sky', img: 'url(' + require('@/assets/logos/sky.svg') + ')' }]
     const clients = [{ name: 'sky', img: require('@/assets/logos/sky.svg') },
     { name: 'bullring', img: require('@/assets/logos/bullring.svg') },
     { name: 'barclays', img: require('@/assets/logos/barclays.svg') },
@@ -71,9 +94,49 @@ export default {
     { name: 'typescript', img: require('@/assets/logos/typescript.svg') },
     { name: 'javascript', img: require('@/assets/logos/javascript.svg') },
     { name: 'electron', img: require('@/assets/logos/electron.svg') },
-
-
     ]
+
+    let displayExtra = ref(false)
+    let displayExtraClass = ref('')
+    let displayExtraImages = ref({
+      'barclays': { src: '', grayscale: false, 'name': '', top: false, title: '', caseStudy: '' }, 'james-bond': { src: '', grayscale: false, 'name': '', top: false, title: '', caseStudy: '' }, 'bullring': { src: '', grayscale: false, 'name': '', top: false, title: '', caseStudy: '' }, 'weather': { src: '', grayscale: false, 'name': '', top: false, title: '', caseStudy: '' }, 'cac': { src: '', grayscale: false, 'name': '', top: false, title: '', caseStudy: '' }, 'hsbc': { src: '', grayscale: false, 'name': '', top: false, title: '', caseStudy: '' }, 'sky': { src: '', grayscale: false, 'name': '', top: false, title: '', caseStudy: '' },
+    })
+    let displayExtraImagesKeys = Object.keys(displayExtraImages.value)
+
+    let resetGridImages = () => {
+      displayExtra.value = false;
+
+      // sectionGrids.forEach((grid) => {
+      //   displayExtraImages.value[grid.name].src = grid.img;
+      // })
+    }
+
+    resetGridImages();
+
+
+    let clickSectionGrid = async (grid) => {
+      if (grid.extra) {
+        // console.log(grid.extra, grid.extra.state)
+        if (grid.extra.state) {
+          displayExtra.value = true;
+          displayExtraClass.value = grid.name;
+          // displayExtraImagesKeys.forEach((imgKey) => {
+          //   displayExtraImages.value[imgKey].grayscale = true
+          // })
+
+          // grid.extra.images.forEach((img) => {
+          //   displayExtraImages.value[img.position].src = img.src
+          //   displayExtraImages.value[img.position].grayscale = false
+
+          // })
+
+          // console.log(displayExtraImages.value, displayExtra.value)
+        }
+      }
+      await nextTick()
+
+      return
+    }
 
 
 
@@ -81,33 +144,22 @@ export default {
       sectionGrids,
       clients,
       topSkills,
-
+      displayExtra,
+      displayExtraClass,
+      displayExtraImages,
+      clickSectionGrid,
+      resetGridImages,
     };
   },
 };
 </script>
 <style lang="scss" scoped>
-@import "@/styles/theme.scss";
-@import "@/styles/style.scss";
+@use "@/styles/theme.scss" as *;
+@use "@/styles/style.scss" as *;
+
 
 
 .section {
-  // display: flex;
-  // grid-gap: 25px;
-  // flex-direction: column;
-  // justify-content: center;
-  // width: 100%;
-
-  // .section__title {
-  // margin: 0;
-  // background-position: center;
-  // background-repeat: no-repeat;
-  // background-size: 10%;
-  // width: 100%;
-  // font-size: 2em;
-
-  // }
-
   .section-main {
     width: 100%;
     // border: solid black 1px;
@@ -128,13 +180,22 @@ export default {
       background-color: var(--section-bg-color);
       background-size: contain;
       background-repeat: no-repeat;
-      transition: background-position 0.2s ease, filter 0.2s ease;
+      transition: background-position 0.2s ease, filter 0.3s ease-in, background-color 0.3s ease;
       outline-color: color-mix(in srgb, var(--section-bg-color) 20%, #0a0a0a);
+      isolation: isolate;
+
+      &:has(.hidden-details__see-more) {
+
+        &:hover,
+        &:focus-within {
+          filter: brightness(0.9);
+          cursor: pointer;
+        }
+      }
 
       &:hover,
       &:focus-within {
-        filter: brightness(0.9);
-        cursor: pointer;
+
 
         .hidden-details {
           opacity: 1;
@@ -146,17 +207,49 @@ export default {
         outline-width: 2px;
       }
 
+      .section-grid__cancel {
+        display: none;
+        grid-column: 1;
+        grid-row: 1;
+
+        &:hover {
+          cursor: pointer;
+
+          #CancelPath {
+            stroke: #600000;
+            stroke: red;
+
+          }
+        }
+
+      }
+
+      .section-grid__icon {
+        height: 1.5lh;
+        width: 1.5lh;
+
+        transition: height 0.4s ease,
+          width 0.4s ease;
+
+        &:hover {
+          height: 1.7lh;
+          width: 1.7lh;
+        }
+      }
+
       .hidden-details {
 
         display: grid;
         gap: 0.3em 0;
         padding: 0.5em 0.6em;
-        background: color-mix(in srgb, var(--section-bg-color) 80%, #0a0a0acc);
+        background-color: color-mix(in srgb, var(--section-bg-color) 80%, #0a0a0acc);
         filter: brightness(1.4);
         opacity: 0;
         text-align: left;
-        transition: opacity 0.4s ease-in;
+        transition: opacity 0.4s ease-in, background-color 0.4s ease;
         border-radius: 0px 0px 14px 14px;
+        grid-column: 1;
+        grid-row: 1;
 
 
         .hidden-details__title {
@@ -168,6 +261,30 @@ export default {
           margin: 0;
           font-size: 0.8em;
         }
+
+        .hidden-details__see-more {
+          container: see-more / inline-size;
+          width: 4lh;
+          height: 1lh;
+
+          .underline {
+            width: 0cqw;
+            // height: 2px;
+            display: block;
+            transition: width 0.2s ease;
+            border: 1px solid var(--hidden-detail-color, --hidden-detail-dark-color);
+          }
+
+          &:hover {
+            font-weight: 700;
+
+            // text-decoration: underline;
+            .underline {
+              width: 100cqw;
+
+            }
+          }
+        }
       }
 
       &:where(:nth-child(2n)) {
@@ -176,91 +293,6 @@ export default {
 
       &:where(:nth-child(2n-1)) {
         --section-bg-color: blue;
-      }
-
-      &--barclays {
-        grid-row: 1/span 8;
-        grid-column: 1/span 6;
-
-        --section-bg-color: #f7fcfe;
-        background-position: -40px 10px;
-
-        &:hover,
-        &:focus-within {
-          background-position: 0 10px;
-        }
-      }
-
-      &--james-bond {
-        --section-bg-color: #0e0e45;
-
-        grid-row: span 5;
-        grid-column: span 12;
-        background-size: cover;
-        background-position: 0 -100px;
-        color: #fafafa;
-      }
-
-      &--bullring {
-        grid-row: span 12;
-        grid-column: span 6;
-        background-size: cover;
-        --section-bg-color: #600000;
-        color: #fafafa;
-
-
-        background-position: right 0;
-      }
-
-      &--weather {
-        grid-row: 9/span 12;
-        grid-column: 1/span 6;
-        // place-items: start stretch;
-
-        --section-bg-color: #e0dfe1;
-        background-position: 0 75px;
-
-        &:hover,
-        &:focus-within {
-          background-position: 0% 50px;
-        }
-      }
-
-      &--hsbc {
-        // place-items: start stretch;
-
-        grid-row: 13/span 8;
-        grid-column: 19/span 6;
-        --section-bg-color: #dd9fa2;
-        background-size: cover;
-        background-position: 50px 50px;
-
-        &:hover,
-        &:focus-within {
-          background-position: 20px 40px;
-
-        }
-
-      }
-
-      &--cac {
-        grid-row: 6/span 11;
-        grid-column: 7/span 12;
-        --section-bg-color: #e8e0de;
-        background-position: -60px 0;
-
-        &:hover,
-        &:focus-within {
-          background-position: 0 0;
-        }
-
-      }
-
-      &--sky {
-        grid-row: 17/span 4;
-        grid-column: 7/span 12;
-        background-size: cover;
-        background-position: 0 center;
       }
 
       &--top-detail {
@@ -296,22 +328,34 @@ export default {
       --section-bg-color: #afb0f088;
     }
 
-    .logo {
-      transition: align-self 0.5s;
-      transition: align-self 0.5s, height 0.2s allow-discrete;
-      height: 120px;
+    .logo-wrapper {
+      --logo-height: 120px;
+      height: var(--logo-height);
+      transition: height 0.2s ease-in;
 
-      &:hover,
-      &:focus-within {
-        align-self: flex-start;
-        cursor: pointer;
+      // &:hover,
+      // &:focus-within {
+      //   height: 200px;
+      //   cursor: pointer;
+      // }
+
+      .logo {
+        height: var(--logo-height);
       }
     }
+
+    &--codestacks .logo-wrapper:is(:hover, :focus-within) {
+    height: 200px;
+    cursor: pointer;
+  }
+
 
     &--right {
       align-self: flex-end
     }
   }
+
+  
 }
 
 @media only screen and (max-width: 600px) {
@@ -347,4 +391,6 @@ export default {
 
   }
 }
+
+@import "../styles/feature-section-grid-default.scss";
 </style>
