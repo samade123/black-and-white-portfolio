@@ -26,11 +26,11 @@
 <script>
 import { widthFunction } from "@/composables/Mobile";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { onMounted } from "vue";
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 export default {
   name: "BioSection",
@@ -99,30 +99,49 @@ export default {
         //   }
         // );
 
-        tlFour.from([".work-section .jobs-array .jobs"], {
-          // selector text, Array, or object
-          y: 25, // any properties (not limited to CSS)
-          // scaleX: 0, // any properties (not limited to CSS)
-          opacity: 0,
-          duration: 1, // seconds
-          ease: "power2.inOut",
-          yoyo: true,
-          stagger: 0.3,
-          once: true,
-          pin: true,
-          scrub: true,
-        });
+        // tlFour.from([".work-section .jobs-array .jobs"], {
+        //   // selector text, Array, or object
+        //   y: 25, // any properties (not limited to CSS)
+        //   // scaleX: 0, // any properties (not limited to CSS)
+        //   opacity: 0,
+        //   duration: 1, // seconds
+        //   ease: "power2.inOut",
+        //   yoyo: true,
+        //   stagger: 0.3,
+        //   once: true,
+        //   pin: true,
+        //   scrub: true,
+        // });
+
+        // tlFive.from([".work-section .jobs-array .jobs"], {
+        //   // selector text, Array, or object
+        //   y: 25, // any properties (not limited to CSS)
+        //   // scaleX: 0, // any properties (not limited to CSS)
+        //   opacity: 0,
+        //   duration: 1, // seconds
+        //   ease: "power2.inOut",
+        //   yoyo: true,
+        //   stagger: 0.3,
+        //   once: true,
+        //   pin: true,
+        //   scrub: true,
+        // });
+
+        // document.getElementById('')
+
+        // let setClass = gsap.set(".project-section .section-main", { className: 'section-main ready' });
 
         tl.add(tlTwo, "-=1.5");
         // tl.add(tlThree, "-=0.4");
-        ScrollTrigger.create({
-          trigger: ".work-section .work-array",
-          start: "center bottom",
-          endTrigger: ".work-section",
-          animation: tlFour,
-          toggleActions: "play pause resume none",
-          // once: true,
-        });
+
+        // ScrollTrigger.create({
+        //   trigger: "#work",
+        //   start: "center bottom",
+        //   endTrigger: ".project-section .section-main",
+        //   animation: setClass,
+        //   toggleActions: "play pause resume none",
+        //   // once: true,
+        // });
       }, 50);
     });
 
