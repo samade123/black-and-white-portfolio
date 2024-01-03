@@ -232,13 +232,11 @@ export default {
     }
 
     .project {
+      @extend .selectable-grid;
       background-color: var(--section-bg-color, blue);
       border-radius: 14px;
       outline-color: color-mix(in srgb, var(--section-bg-color) 20%, #0a0a0a);
       height: 250px;
-
-
-      @extend .selectable-grid;
 
       &:hover:not(.selected),
       &:focus-within:not(.selected) {
