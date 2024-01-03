@@ -1,5 +1,5 @@
 <template>
-  <div class="bio-section" id="bio">
+  <div class="bio-section section" id="bio">
     <div class="img" :style="{
       backgroundImage:
         'url(' + require(`@/assets/${getScreenCategory()}/me.webp`) + ')',
@@ -153,29 +153,29 @@ export default {
 @import "@/styles/theme.scss";
 
 .bio-section {
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  --img-width: 450px;
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  place-items: center;
 
-  @media screen and (max-width: 600px) {
-    align-items: start;
-  }
 
-  grid-gap: 10px 30px;
+  grid-gap: 1em 2.5em;
+  ;
 
   margin: 0 auto;
-  min-height: 90vh;
+  min-height: 100vh;
+  min-height: 100svh;
+
 
   .img {
     // width: 40vw;
-    width: clamp(220px, 23vw, 400px);
+    width: clamp(220px, 100%, var(--img-width));
     aspect-ratio: 1;
     // aspect-ratio: 5/ 6;
     filter: grayscale(100%);
     // border-radius: 60%;
     border-radius: 14px;
+    place-self: center end;
 
 
     background-position: center top;
@@ -184,8 +184,9 @@ export default {
   }
 
   .img-friend {
-    width: min(80vw, 500px);
-    // height: 100%;
+    // width: min(80vw, 500px);
+    width: min(100%, var(--img-width));
+
     display: flex;
     flex-direction: column;
     grid-gap: 30px;
@@ -205,5 +206,16 @@ export default {
       margin: 0;
     }
   }
+  @media screen and (max-width: 600px) {
+    --img-width: 350px;
+  
+    grid-template-columns: 1fr;
+  
+    .img {
+      place-self: center;
+    }
+  }
 }
+
+
 </style>
