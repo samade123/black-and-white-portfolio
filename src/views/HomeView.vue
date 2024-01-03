@@ -75,8 +75,8 @@ export default {
   display: grid;
   place-items: center;
   width: 100%;
-  max-width: min(1400px, 95vw);
-  margin: 20px auto;
+  max-width: min(1400px, 100vw);
+  margin: 0 auto;
   grid-gap: 40px;
   & > div {
     width: 100%;

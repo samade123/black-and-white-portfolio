@@ -330,4 +330,4 @@ export default {
     }
   }
 }
-</style>
+@import "../styles/project-section-mobile.scss";</style>

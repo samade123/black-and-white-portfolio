@@ -1,0 +1,142 @@
+// @use "@/styles/theme.scss"as *;
+// @use "@/styles/style.scss"as *;
+
+@media only screen and (max-width: 600px) {
+  .section {
+    // padding: 0 0.5em;;
+    .section-main {
+      transition: grid-template-rows 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.125);
+      // transition: grid-template-rows 0.5s ease-in-out;
+
+
+      grid-template-rows: 1fr 1fr 1fr 1fr 0fr 0fr 0fr;
+      grid-template-columns: 1fr;
+      height: 80vh;
+
+      &:has(.project:first-child.selected) {
+        grid-template-rows: 4fr 1fr 1fr 1fr 0fr 0fr 0fr;
+        grid-template-columns: 1fr;
+      }
+
+      &:has(.project:nth-child(2).selected) {
+        grid-template-rows: 1fr 4fr 1fr 1fr 0fr 0fr 0fr;
+        grid-template-columns: 1fr;
+      }
+
+      &:has(.project:nth-child(3).selected) {
+        grid-template-rows: 1fr 1fr 4fr 1fr 0fr 0fr 0fr;
+        grid-template-columns: 1fr;
+      }
+
+      &:has(.project:nth-child(4).selected) {
+        grid-template-rows: 1fr 1fr 1fr 4fr 0fr 0fr 0fr;
+        grid-template-columns: 1fr;
+      }
+
+
+
+
+      .project {
+        height: auto;
+        width: 100%;
+        box-sizing: border-box;
+        grid-template-columns: auto;
+        grid-template-rows: 1fr 1fr;
+
+        //  &:not(.selected){
+        //   background-repeat: repeat-x, no-repeat;
+        //  }
+        transition-property: background-position, filter;
+
+        .project-details {
+          transition-property: height;
+          grid-row: 2;
+          grid-column: auto;
+          // overflow-y: hidden;
+
+        }
+
+
+        &--weather {
+          background-position-y: 0, 0;
+          background-position-x: 0, 0;
+          background-size: auto 180%, cover;
+
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+
+          &:hover:not(.selected),
+          &:focus-within:not(.selected) {
+            // background-position-y: 95px, 0;
+            background-position-y: 0, 0;
+
+
+          }
+
+          .project-details {
+            grid-row: auto;
+            grid-column: 2;
+
+          }
+
+
+        }
+
+        &--cac {
+          background-position-y: 0, 0;
+          background-position-x: 100%, 0;
+          background-size: auto 140%, cover;
+
+          // transition-property: background-size, filter;
+
+          &:not(.selected):hover,
+          &:not(.selected):focus-within {
+            background-position-y: 0, 0;
+            background-position-x: 100%, 0;
+
+            background-size: auto 75%, cover;
+
+          }
+
+          &.selected {
+            background-position-x: 100%, 0;
+            background-position-y: 0, 0;
+
+            background-size: auto 80%, cover;
+
+          }
+        }
+
+        &--agency {
+
+          background-position: -33px 0, 0 0;
+
+          background-size: auto 180%, cover;
+
+          &:hover:not(.selected),
+          &:focus-within:not(.selected),
+          &.selected {
+            background-position: -33px 0, 0 0;
+            background-size: auto 90%, cover;
+          }
+
+        }
+
+        &--figma {
+
+          background-position: right 0, 0 0;
+
+          background-size: auto 180%, cover;
+
+          &:hover:not(.selected),
+          &:focus-within:not(.selected),
+          &.selected {
+            background-position: right 0, 0 0;
+            background-size: auto 90%, cover;
+          }
+
+        }
+      }
+    }
+  }
+}
