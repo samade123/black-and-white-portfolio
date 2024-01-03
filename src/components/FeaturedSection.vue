@@ -210,10 +210,15 @@ export default {
 
       &:hover,
       &:focus-within {
-
-
         .hidden-details {
           opacity: 1;
+        }
+      }
+
+      &:not( :hover,
+        :focus-within) {
+        .hidden-details {
+          pointer-events: none;
         }
       }
 
