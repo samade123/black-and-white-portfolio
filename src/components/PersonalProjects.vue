@@ -159,7 +159,7 @@ export default {
     onMounted(() => {
 
       setTimeout(() => {
-        var tl = gsap.timeline({ delay: 0.6, smoothChildTiming: true });
+        var tl = gsap.timeline({ delay: 0.25, smoothChildTiming: true });
         tl.call(() => {
           selectJob(0)
         }, null, 0)
@@ -172,7 +172,7 @@ export default {
           toggleActions: "play pause resume none",
           // once: true,
         });
-      });
+      }, 50);
     });
 
     const selectedJob = ref(jobs.value[0]);
