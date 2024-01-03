@@ -43,6 +43,7 @@ html {
   text-align: center;
   color: #2c3e50;
   background: #fcfcfc;
+  background-image: linear-gradient(135deg, #00000007 45%, rgba(135, 180, 198, 0.4) 100%);
 }
 
 .header {
