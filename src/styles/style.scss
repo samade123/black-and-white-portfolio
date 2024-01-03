@@ -5,6 +5,8 @@
   justify-content: center;
   width: 100%;
   box-sizing: border-box;
+  padding: 0 0.5em;
+  margin: 0 auto;
 
   .section__title {
     margin: 0;
@@ -24,9 +26,9 @@
   // transition: filter 0.2s ease;
 }
 
-@media only screen and (max-width: 600px) {
-  .section {
-    padding: 0 0.5em;
-    margin: 0 auto;
-  }
-}
+// @media only screen and (max-width: 600px) {
+//   .section {
+//     padding: 0 0.5em;
+//     margin: 0 auto;
+//   }
+// }

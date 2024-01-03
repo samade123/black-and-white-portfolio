@@ -78,18 +78,22 @@
           display: flex;
           justify-content: flex-start;
           gap: 0.4em;
+
           .project-details__skill {
             // display: none;
             height: 30px;
             aspect-ratio: 1;
 
             background-size: cover;
+
             &.vue-js {
               background-image: url('../assets/logos/vue.svg');
             }
+
             &.css {
               background-image: url('../assets/logos/css.svg');
             }
+
             &.html {
               background-image: url('../assets/logos/html.svg');
             }
@@ -97,15 +101,19 @@
             &.javascript {
               background-image: url('../assets/logos/javascript.svg');
             }
+
             &.typescript {
               background-image: url('../assets/logos/typescript.svg');
             }
+
             &.figma {
               background-image: url('../assets/logos/figma.svg');
             }
+
             &.angular {
               background-image: url('../assets/logos/angular.svg');
             }
+
             &.all {
               display: none;
             }
