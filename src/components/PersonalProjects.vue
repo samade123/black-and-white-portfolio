@@ -253,9 +253,9 @@ export default {
 
       &--weather {
         --section-bg-color: #87b4c6;
-        background-position-x: -20px, 0;
+        background-position-x: -.5em, 0;
         background-position-y: 100px, 0;
-        background-size: auto 80%, cover;
+        background-size: auto 100%, cover;
 
 
         &:hover:not(.selected),
