@@ -1,11 +1,8 @@
 <template>
-  <div class="header">
-    <!-- <div class="left">Dev by Sam</div> -->
-    <!-- <div class="right">
-      <i class="las la-lg la-bars"></i>
-      <button @click="refreshApp">refresh app</button>
-    </div> -->
-  </div>
+  <!-- <div class="header">
+    <div class="left">Dev by Sam</div>
+   
+  </div> -->
   <router-view />
 
   <PWAModal />
