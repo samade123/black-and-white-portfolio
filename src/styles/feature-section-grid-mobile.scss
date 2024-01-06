@@ -27,7 +27,11 @@
         &--barclays {
           grid-column: span 3;
           grid-row: span 1;
-          background-position: 0;
+
+          --bg-image: url('../assets/large/barclays-desktop.webp'),  url('../assets/featured/barclays-1.webp');
+
+          background-position: 0, right 0;
+          background-size: contain, 50% auto;
 
         }
 
