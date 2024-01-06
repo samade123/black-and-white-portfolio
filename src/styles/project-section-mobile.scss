@@ -3,9 +3,10 @@
 
 @media only screen and (max-width: 600px) {
   .section {
+
     // padding: 0 0.5em;;
     .section-main {
-      transition: grid-template-rows 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.125);
+      transition: grid-template-rows 1s cubic-bezier(0.175, 0.885, 0.32, 1.125);
       // transition: grid-template-rows 0.5s ease-in-out;
 
 
@@ -53,6 +54,33 @@
           grid-row: 2;
           grid-column: auto;
           // overflow-y: hidden;
+
+        }
+
+        &:not(.selected) {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+          
+          .project-details {
+            opacity: 1;
+            height: auto;
+            grid-row: auto;
+            grid-column: 2;
+
+            :not(.project-details__title){
+              display: none;
+            }
+
+            .project-details__title{
+            color: color-mix(in srgb, var(--project-detail-dark-color) 70%, var(--section-bg-color, blue));
+            }
+
+          }
+        }
+        &--figma:not(.selected), &--cac:not(.selected) {
+          .project-details {
+            grid-column: 1;
+          }
 
         }
 
