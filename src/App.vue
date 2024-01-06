@@ -29,8 +29,8 @@ export default {
 @import "./../node_modules/normalize.css/normalize.css";
 @import "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css";
 
-html {
-  scroll-behavior: smooth;
+html, body {
+  scroll-behavior: smooth !important;
 }
 
 #app {
