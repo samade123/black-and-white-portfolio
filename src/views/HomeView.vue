@@ -1,8 +1,9 @@
 <template>
   <div class="home">
+    <progressMenu />
     <BioSection />
     <FeaturedSection />
-    <ProjectSection/>
+    <ProjectSection />
 
     <!-- <ResumeSection /> -->
 
@@ -45,12 +46,15 @@ import ProjectSection from "@/components/PersonalProjects.vue";
 
 import ResumeSection from "@/components/ResumeSection.vue";
 import FeaturedSection from "@/components/FeaturedSection.vue";
+import progressMenu from "@/components/progress.vue";
+
 
 // import WorkSection from "@/components/WorkSection.vue";
 
 export default {
   name: "HomeView",
   components: {
+    progressMenu,
     BioSection,
     WorkSection,
     ResumeSection,
@@ -77,8 +81,10 @@ export default {
   width: 100%;
   max-width: min(1400px, 100vw);
   margin: 0 auto;
-  grid-gap: 40px;
-  & > div {
+  grid-gap: 1em 0;
+
+  // grid-gap: 0;
+  &>div {
     width: 100%;
   }
 
@@ -97,6 +103,7 @@ export default {
 
   a {
     color: black;
+
     &:hover {
       text-decoration: underline;
     }
