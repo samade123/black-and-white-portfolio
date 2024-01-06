@@ -25,127 +25,19 @@
 
 <script>
 import { widthFunction } from "@/composables/Mobile";
-import { gsap } from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import { onMounted } from "vue";
-
-// gsap.registerPlugin(ScrollTrigger);
 
 export default {
   name: "BioSection",
   setup() {
     const { width, setMobile, getScreenCategory } = widthFunction();
 
-    var tl = gsap.timeline({ delay: 0.07, smoothChildTiming: true });
-    var tlTwo = gsap.timeline({ delay: 0.07, smoothChildTiming: true });
-    var tlThree = gsap.timeline({ delay: 0.07, smoothChildTiming: true });
-    var tlFour = gsap.timeline({ delay: 0.07, smoothChildTiming: true });
+    let scrollToBottom = (e) => {
+      e.preventDefault();
 
-    onMounted(() => {
-      setTimeout(() => {
-        tl.from([".bio-section .img"], {
-          // selector text, Array, or object
-          scaleX: 1.2, // any properties (not limited to CSS)
-          scaleY: 1.3, // any properties (not limited to CSS)
-          // scaleX: 0, // any properties (not limited to CSS)
-          opacity: 0,
-          duration: 1.5, // seconds
-          ease: "power2.inOut",
-          yoyo: true,
-          delay: 0.5,
-          stagger: 0.1,
-        });
-        tl.from(
-          [".bio-section .img-friend h1", ".bio-section .img-friend div"],
-          {
-            // selector text, Array, or object
-            x: 25, // any properties (not limited to CSS)
-            // scaleX: 0, // any properties (not limited to CSS)
-            opacity: 0,
-            duration: 1, // seconds
-            ease: "power2.inOut",
-            yoyo: true,
-            stagger: 0.1,
-          }
-        );
-        tlTwo.fromTo(
-          [".bio-section .img-friend h1"],
-          {
-            lineHeight: 2.2,
-          },
-          {
-            // selector text, Array, or object
-            lineHeight: 1.7,
-            duration: 0.6, // seconds
-            ease: "power2.inOut",
-            stagger: 0.2,
-            yoyo: true,
-          }
-        );
+      window.scrollTo(0, document.body.scrollHeight);
 
-        // tlThree.fromTo(
-        //   [".bio-section .img-friend .buttons-div"],
-        //   {
-        //     gridGap: "30px",
-        //   },
-        //   {
-        //     // selector text, Array, or object
-        //     gridGap: "20px",
-        //     duration: 1.2, // seconds
-        //     ease: "power2.inOut",
-        //     stagger: 0.3,
-        //     yoyo: true,
-        //   }
-        // );
-
-        // tlFour.from([".work-section .jobs-array .jobs"], {
-        //   // selector text, Array, or object
-        //   y: 25, // any properties (not limited to CSS)
-        //   // scaleX: 0, // any properties (not limited to CSS)
-        //   opacity: 0,
-        //   duration: 1, // seconds
-        //   ease: "power2.inOut",
-        //   yoyo: true,
-        //   stagger: 0.3,
-        //   once: true,
-        //   pin: true,
-        //   scrub: true,
-        // });
-
-        // tlFive.from([".work-section .jobs-array .jobs"], {
-        //   // selector text, Array, or object
-        //   y: 25, // any properties (not limited to CSS)
-        //   // scaleX: 0, // any properties (not limited to CSS)
-        //   opacity: 0,
-        //   duration: 1, // seconds
-        //   ease: "power2.inOut",
-        //   yoyo: true,
-        //   stagger: 0.3,
-        //   once: true,
-        //   pin: true,
-        //   scrub: true,
-        // });
-
-        // document.getElementById('')
-
-        // let setClass = gsap.set(".project-section .section-main", { className: 'section-main ready' });
-
-        tl.add(tlTwo, "-=1.5");
-        // tl.add(tlThree, "-=0.4");
-
-        // ScrollTrigger.create({
-        //   trigger: "#work",
-        //   start: "center bottom",
-        //   endTrigger: ".project-section .section-main",
-        //   animation: setClass,
-        //   toggleActions: "play pause resume none",
-        //   // once: true,
-        // });
-      }, 50);
-    });
-
-    return { getScreenCategory };
+    }
+    return { getScreenCategory, scrollToBottom };
   },
 };
 </script>
@@ -163,9 +55,12 @@ export default {
   ;
 
   margin: 0 auto;
-  min-height: 100vh;
-  min-height: 100svh;
+  --height-number: 80;
 
+  height: calc(var(--height-number) * 1vh);
+  height: calc(var(--height-number) * 1svh);
+  padding: 0 1em;
+  box-sizing: border-box;
 
   .img {
     // width: 40vw;
@@ -178,14 +73,18 @@ export default {
     place-self: center end;
 
 
+
     background-position: center top;
     background-repeat: no-repeat;
     background-size: 150%;
+    animation: scale-img 1s 0.1s;
   }
 
   .img-friend {
     // width: min(80vw, 500px);
-    width: min(100%, var(--img-width));
+    width: min(100%, calc(var(--img-width) + 40px));
+    // padding: 0 1em 0 0;
+    // box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
@@ -193,7 +92,18 @@ export default {
     justify-content: center;
     text-wrap: balance;
 
-    span {
+    &>div {
+      transform: translateX(25px);
+      opacity: 0;
+
+      animation: scale-img-friend-div 1s var(--div-delay, 1.2s) forwards;
+
+      &:nth-of-type(2) {
+        --div-delay: 1.4s;
+      }
+    }
+
+    h1 span {
       background: black;
       color: white;
       line-height: 1.7;
@@ -202,20 +112,106 @@ export default {
 
     }
 
+    // .img-friend__transition-title {
+    //   animation: scale-img-friend-title 0.6s 1.6s forwards;
+
+    // }
+
     &>* {
       margin: 0;
     }
   }
+
   @media screen and (max-width: 600px) {
     --img-width: 350px;
-  
+
     grid-template-columns: 1fr;
-  
+
     .img {
       place-self: center;
     }
   }
+
+  @keyframes scale-img {
+
+    from {
+      transform: scale(1.2, 1.3);
+      opacity: 0;
+    }
+
+
+  }
+
+  @keyframes scale-img-friend-title {
+
+    from {
+      transform: scale(0);
+      overflow: hidden;
+      // opacity: 0;
+    }
+
+
+
+  }
+
+  @keyframes scale-img-friend-div {
+
+    from {
+      transform: translateX(25px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+  }
 }
 
+@media screen and (max-width: 600px) {
 
+  .bio-section {
+
+    --img-width: 200px;
+    grid-template-columns: auto;
+    // grid-template-rows: var(--img-width) 1fr;
+    grid-template-rows: 3fr 3fr;
+
+    place-items: center;
+    padding: 1em 2em;
+    // height: 70svh;
+    // height: fit-content;
+    
+    --height-number: 80;
+   
+    .img {
+      height: auto;
+      width: min(100%, 250px);
+
+      place-self: end center;
+
+    }
+
+
+
+    .img-friend {
+      width: 100%;
+      place-self: end center;
+
+      a {
+        height: 100%;
+
+        .buttons {
+          box-sizing: border-box;
+          padding-inline: 1em;
+        }
+      }
+
+    }
+
+
+
+  }
+}
 </style>
