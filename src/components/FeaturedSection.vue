@@ -55,10 +55,16 @@
       <div class="logo-wrapper" v-for="logo in  clients" :key="logo.name">
         <img class="logo" v-svg-inline :class="'logo--' + logo.name" :aria-label="logo.name" :title="logo.name"
           :src="logo.img">
+
+        <div class="logo--agency" v-if="logo.agency">
+          <div>Via: </div>
+          <div :class="['logo--'.concat(logo.agency)]"></div>
+        </div>
+
       </div>
     </div>
 
-    <h2 class="section__title ">Codestacks</h2>
+    <h2 class="section__title codestacks">Codestacks</h2>
     <div class="section-partial section-partial--codestacks">
       <div class="logo-wrapper" v-for="logo in  topSkills" :key="logo.name">
 
@@ -71,14 +77,21 @@
 </template>
 
 <script>
-import { computed, ref } from "@vue/reactivity";
-import { nextTick } from "vue";
-// import Modal from "@/components/Modal.vue";
+import { ref } from "@vue/reactivity";
+import { onMounted } from "vue";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { widthFunction } from "@/composables/Mobile";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default {
   name: "FeaturedSection",
 
   setup() {
+
+    const { width, setMobile, getScreenCategory } = widthFunction();
+
     const sectionGrids = [{ name: 'barclays', details: { title: 'Office Quiz Leaderboard', top: false, caseStudy: 'An electron based database which allowed Barclays offices in mulitple regions to record gaming scores.', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }, { name: 'scss' }] }, extra: { state: true, images: [{ src: 'url(' + require('@/assets/large/barclays-desktop.webp') + ')', position: 'bullring' }, { src: 'url(' + require('@/assets/large/barclays-desktop.webp') + ')', position: 'cac' }] } },
     { name: 'james-bond', details: { title: 'James Bond - Pod Experience', top: false, caseStudy: 'An in mall pod experience as a marketing tool for the 2021 James Bond Movie', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }, { name: 'scss' }] }, },
     { name: 'bullring', details: { title: 'Bullring Shopping Centre - Crystal Maze', top: false, caseStudy: 'Crystal Maze Leaderboard/Database - A shopping center gaming experience. Based off the Barclays version ', agency: 'Event Engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'js' }, { name: 'scss' }] }, extra: { state: true, } },
@@ -87,10 +100,10 @@ export default {
     { name: 'hsbc', details: { title: 'HSBC Fund Management', top: true, caseStudy: 'A fund management portal for High Net Worth and Very High Net Worth clients and Agents, Tailored for HSBC and Schroders', agency: 'InvestCloud', skills: [{ name: 'css' }, { name: 'HTML' }] }, extra: { state: true, } },
     { name: 'sky', details: { title: 'Sky Movies - Pod experience', top: true, caseStudy: '', agency: 'event engineering', skills: [{ name: 'electron' }, { name: 'vue' }, { name: 'scss' }] } },
     ]
-    const clients = [{ name: 'sky', img: require('@/assets/logos/sky.svg') },
-    { name: 'bullring', img: require('@/assets/logos/bullring.svg') },
-    { name: 'barclays', img: require('@/assets/logos/barclays.svg') },
-    { name: 'hsbc', img: require('@/assets/logos/hsbc.svg') },
+    const clients = [{ name: 'sky', img: require('@/assets/logos/sky.svg'), agency: 'event-engineering' },
+    { name: 'bullring', img: require('@/assets/logos/bullring.svg'), agency: 'event-engineering' },
+    { name: 'barclays', img: require('@/assets/logos/barclays.svg'), agency: 'event-engineering' },
+    { name: 'hsbc', img: require('@/assets/logos/hsbc.svg'), agency: 'event-engineering' },
     ]
     const topSkills = [{ name: 'angular', img: require('@/assets/logos/angular.svg') },
     { name: 'vue', img: require('@/assets/logos/vue.svg') },
@@ -108,10 +121,6 @@ export default {
 
     let resetGridImages = () => {
       displayExtra.value = false;
-
-      // sectionGrids.forEach((grid) => {
-      //   displayExtraImages.value[grid.name].src = grid.img;
-      // })
     }
 
     resetGridImages();
@@ -123,23 +132,118 @@ export default {
         if (grid.extra.state) {
           displayExtra.value = true;
           displayExtraClass.value = grid.name;
-          // displayExtraImagesKeys.forEach((imgKey) => {
-          //   displayExtraImages.value[imgKey].grayscale = true
-          // })
-
-          // grid.extra.images.forEach((img) => {
-          //   displayExtraImages.value[img.position].src = img.src
-          //   displayExtraImages.value[img.position].grayscale = false
-
-          // })
-
-          // console.log(displayExtraImages.value, displayExtra.value)
         }
       }
-      await nextTick()
-
       return
     }
+
+    let config = { width: '100%' }
+
+    let setValues = () => {
+      config.width = setMobile.value ? '80%' : '600px';
+
+      config.height = setMobile.value ? false : '80vh';
+      config['padding-top'] = setMobile.value ? '10svh' : '40px';
+
+
+      config.start = setMobile.value ? "top+=20px top" : "top top";
+      config.end = setMobile.value ? "center+=100px top" : "+=55%";
+      config.endTrigger = setMobile.value ? ".bio-section .img" : false;
+      config.translateY = setMobile.value ? '5vh' : '10vh';
+      config.titleTranslateY = setMobile.value ? '5vh' : '10vh';
+
+      config.scale = setMobile.value ? 0.6 : 0.6;
+
+    }
+    onMounted(() => {
+
+      setTimeout(() => {
+        setValues();
+
+        var featuredTl = gsap.timeline({ delay: 0, smoothChildTiming: true });
+        
+
+
+        featuredTl.from([".featured-section .section-main"], {
+          // width: config.width,
+          scale: config.scale,
+          // translateY: config.translateY,
+          '--box-shadow-glow-range': '20px',
+          // 'padding-top': config['padding-top'],
+          // 'pointerEvents': 'none',
+          ease: "power2.inOut",
+        })
+
+        featuredTl.from([".featured-section .featured-section__title"], {
+          opacity: '0',
+          translateY: config.titleTranslateY,
+          ease: "power2.inOut",
+          delay: -0.4,
+
+        })
+
+        featuredTl.from([".featured-section .section-grid--james-bond"], {
+          backgroundPosition: '0 0',
+
+          ease: "power2.inOut",
+          delay: -0.4,
+
+        })
+
+        window.addEventListener("resize", () => {
+          setValues();
+          ScrollTrigger.refresh();
+        });
+
+        
+
+
+
+        ScrollTrigger.create({
+          start: config.start,
+          end: config.end,
+          trigger: ".bio-section",
+          endTrigger: config.endTrigger,
+          animation: featuredTl,
+          snap: 0.1,
+          scrub: true,
+          toggleActions: "play pause resume reset",
+          // markers: true,
+          // once: true,
+        });
+
+        // let skillsTl = gsap.timeline({ delay: 0, smoothChildTiming: true });
+        // skillsTl.from([".section--clients .section-partial--right"], {
+        //   translateX: '-10%',
+        //   ease: "power2.inOut",
+
+        //   // ease: "none",
+        // })
+
+        // skillsTl.from([".section--clients .section-partial--codestacks"], {
+        //   translateX: '10%',
+        //   ease: "power2.inOut",
+        //   // delay: 0.5,
+
+        //   // ease: "none",
+        // })
+
+        // ScrollTrigger.create({
+        //   start: 'top top',
+        //   end: 'bottom top',
+        //   trigger: ".featured-section",
+        //   endTrigger: '.featured-section .section-partial--right',
+        //   animation: skillsTl,
+        //   snap: 0.1,
+        //   scrub: true,
+        //   toggleActions: "play pause resume reset",
+        //   // markers: true,
+        //   // once: true,
+        // });
+
+      }, 50);
+      // }
+    });
 
 
 
@@ -163,8 +267,12 @@ export default {
 
 
 .section {
+  // min-height: calc(80svw *(3 / 5));
+
   .section-main {
     width: 100%;
+    // max-width: 95vw;
+    // max-width: 95svw;
     // border: solid black 1px;
     border-radius: 14px;
     margin: 0 auto;
@@ -174,8 +282,16 @@ export default {
     aspect-ratio: 5/3;
     display: grid;
     gap: 0.5em;
+    padding-top: 0px;
+    box-sizing: border-box;
+    --box-shadow-glow-range: 3px;
+
 
     div.section-grid {
+      -webkit-box-shadow: 0px 0px 30px var(--box-shadow-glow-range) rgba(170, 37, 207, 0.28);
+      -moz-box-shadow: 0px 0px 30px var(--box-shadow-glow-range) rgba(170, 37, 207, 0.28);
+      box-shadow: 0px 0px 30px var(--box-shadow-glow-range) rgba(170, 37, 207, 0.28);
+
       display: grid;
       place-items: end stretch;
       border-radius: 14px;
@@ -186,6 +302,7 @@ export default {
       transition: background-position 0.2s ease, filter 0.3s ease-in, background-color 0.3s ease;
       outline-color: color-mix(in srgb, var(--section-bg-color) 20%, #0a0a0a);
       isolation: isolate;
+      border: 2px solid color-mix(in srgb, var(--section-bg-color) 20%, #0a0a0a88);
 
       &:has(.hidden-details__see-more) {
 
@@ -405,6 +522,8 @@ export default {
     background-color: var(--section-bg-color);
     min-height: 200px;
 
+    // transition: transform 0.4s ease;
+
     &:nth-child(2) {
       --section-bg-color: #afb0f088;
     }
@@ -413,22 +532,63 @@ export default {
       --logo-height: 120px;
       height: var(--logo-height);
       transition: height 0.2s ease-in;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
-      // &:hover,
-      // &:focus-within {
-      //   height: 200px;
-      //   cursor: pointer;
-      // }
+      .logo--agency {
+        display: flex;
+        justify-content: center;
+        gap: 0.2em;
+        // place-items: center;
+        opacity: 0;
+        transform: translateY(-1lh);
+        transition: opacity 0.3s ease, transform 0.2s ease-in 0.1s;
+        // background: black;
+        border-radius: 14px;
+        color: #f7f7f7;
+      }
+
+
+      .logo--event-engineering {
+        background-image: url(http://localhost:8080/img/event-engineering.6936d010.png);
+        height: 20px;
+        width: 100px;
+        background-size: auto 100%;
+        background-repeat: no-repeat;
+        background-color: black;
+        background-position: center;
+        padding: 0.5em;
+        box-sizing: border-box;
+        border-radius: 6px;
+
+
+
+      }
+
+      &:hover,
+      &:focus-within {
+        // height: calc(var(--logo-height) * 1.2);
+
+        // cursor: pointer;
+
+        .logo--agency {
+          // opacity: 1;
+          transform: translateY(0);
+
+
+        }
+      }
 
       .logo {
         height: var(--logo-height);
       }
     }
 
-    &--codestacks .logo-wrapper:is(:hover, :focus-within) {
-      height: 200px;
-      cursor: pointer;
-    }
+    // &--codestacks .logo-wrapper:is(:hover, :focus-within) {
+    //   height: 200px;
+    //   cursor: pointer;
+    // }
 
 
     &--right {
@@ -443,7 +603,7 @@ export default {
   .section {
     .section-main {
       // width: 95vw;
-      aspect-ratio: 5/4;
+      aspect-ratio: 1;
 
 
     }
