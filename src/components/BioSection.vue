@@ -5,9 +5,9 @@
         'url(' + require(`@/assets/${getScreenCategory()}/me.webp`) + ')',
     }"></div>
     <div class="img-friend">
-      <h1>Hi, I'm Sam and I'm a <span>Front-end Developer</span></h1>
+      <h1>Hi, I'm Sam and I'm a <span>Frontend Developer</span></h1>
       <div>
-        Front End Engineer | Solutions Architecht
+        <span class="img-friend__transition-title"> Frontend Engineer </span>| Solutions Architecht
         <!-- <br> -->
         <!-- I specialise in creating modern web apps! -->
       </div>
