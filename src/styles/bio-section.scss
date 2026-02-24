@@ -1,65 +1,41 @@
-.buttons-div {
-  display: flex;
-  gap: 15px;
-  justify-content: flex-start;
-  width: 100%;
+.btn.btn-contact {
+  background: var(--highlight-bg);
+  color: var(--highlight-text);
+  border: 2px solid var(--highlight-bg);
+
+  &:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
 }
 
-.btn {
-  padding: 16px 34px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border-radius: 8px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  font-family: inherit;
+.btn.btn-work {
+  background: transparent;
+  color: var(--btn-work-text);
+  border: 2px solid var(--btn-work-text);
 
-  &.btn-contact {
+  &:hover {
     background: var(--highlight-bg);
     color: var(--highlight-text);
-    border: 2px solid var(--highlight-bg);
+    padding-right: 50px;
+    border-color: var(--highlight-bg);
 
-    &:hover {
-      transform: translateY(-8px) scale(1.05);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    &::after {
+      right: 18px;
+      opacity: 1;
     }
   }
 
-  &.btn-work {
-    background: transparent;
-    color: var(--btn-work-text);
-    border: 2px solid var(--btn-work-text);
-
-    &:hover {
-      background: var(--highlight-bg);
-      color: var(--highlight-text);
-      padding-right: 50px;
-      border-color: var(--highlight-bg);
-
-      &::after {
-        right: 18px;
-        opacity: 1;
-      }
-    }
-
-    &::after {
-      content: "→";
-      position: absolute;
-      right: -25px;
-      top: 0;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      opacity: 0;
-      font-size: 1.2rem;
-    }
+  &::after {
+    content: "→";
+    position: absolute;
+    right: -25px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    font-size: 1.2rem;
   }
 }
